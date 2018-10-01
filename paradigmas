@@ -1,0 +1,38 @@
+import os
+from tkinter import *
+from tkinter import scrolledtext
+from tkinter import Menu
+from datetime import datetime
+
+window = Tk()
+window.geometry("800x600")
+window.title("Proyecto Paradigmas")
+menu = Menu(window)
+new_item = Menu(menu)
+new_item1 = Menu(menu)
+new_item2 = Menu(menu)
+new_item3 = Menu(menu)
+new_item.add_command(label='New')
+new_item.add_separator()
+new_item.add_command(label='Edit')
+menu.add_cascade(label='Archivo', menu=new_item)
+new_item1.add_command(label='New')
+new_item1.add_separator()
+new_item1.add_command(label='Edit')
+menu.add_cascade(label='Editar', menu=new_item1)
+new_item2.add_command(label='New')
+new_item2.add_separator()
+new_item2.add_command(label='Edit')
+menu.add_cascade(label='Ver', menu=new_item1)
+new_item3.add_command(label='New')
+new_item3.add_separator()
+new_item3.add_command(label='Edit')
+menu.add_cascade(label='Ayuda', menu=new_item1)
+window.config(menu=menu)
+txt = scrolledtext.ScrolledText(window,width=97,height=20)
+txt.grid(column=0,row=0)
+txt1 = scrolledtext.ScrolledText(window,width=97,height=20)
+txt1.grid(column=0,row=1)
+txt1.insert(END,os.getcwd())
+print(os.getcwd())
+window.mainloop()
