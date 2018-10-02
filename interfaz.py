@@ -3,7 +3,6 @@ from tkinter import *
 from tkinter import scrolledtext
 from tkinter import Menu
 from datetime import datetime
-
 window = Tk()
 window.geometry("800x600")
 window.title("Proyecto Paradigmas")
