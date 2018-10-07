@@ -141,17 +141,12 @@ class ventana_principal(Frame):
                 print("gramatica modificada")
 
         else: # si se selecciono "abrir gramatica" antes
-            filename = asksaveasfilename(
-                initialdir=self.archivo_actual,
-                filetype=(("Text File", "*.txt"), ("XML Files", "*.xml")),
-                title="Salvar gramatica"
-            )
 
-            fo = open(filename, "wb+", encoding='utf-8')
+            fo = open(self.archivo_actual, "w", encoding='utf-8')
             fo.write(self.scroll_text.get("1.0", END))
             fo.close()
             self.archivo_actual = ""  # limpiamos la variable
-            print("archivo modificado")
+            mens = messagebox.showinfo("advertencia","gramatica modificada");
 
 
     def clear_texts(self):
@@ -162,11 +157,13 @@ class ventana_principal(Frame):
                 filetype=(("Text File", "*.txt"), ("XML Files", "*.xml")),
                 title="Salvar gramatica"
             )
-
-            fo = open(filename, "w", encoding='utf-8')
-            fo.write(self.scroll_text.get("1.0", END))
-            fo.close()
-            print("gramatica guardada")
+            if not filename:
+                print("gramatica no guardada")
+            else:
+                fo = open(filename, "w", encoding='utf-8')
+                fo.write(self.scroll_text.get("1.0", END))
+                fo.close()
+                print("gramatica guardada")
         else:
             self.scroll_text.delete("1.0", END)
             self.scroll_text2.delete("1.0", END)
