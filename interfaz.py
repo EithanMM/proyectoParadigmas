@@ -102,7 +102,7 @@ class ventana_principal(Frame):
 
     def open_archive(self):
         filename = askopenfilename(
-            initialdir="C:/PycharmProjects/paradigmas/Algoritmos/",
+            initialdir=os.getcwd()+"/Algoritmos/",
             filetypes=(("Text File", "*.txt"), ("XML Files", "*.xml")),
             title= "Elija una gramatica"
         )
@@ -126,7 +126,7 @@ class ventana_principal(Frame):
 
         if self.archivo_actual == "": # si no se selecciono "abrir gramatica" antes.
             filename = asksaveasfilename(
-                initialdir="C:/PycharmProjects/paradigmas/Algoritmos/",
+                initialdir=os.getcwd()+"/Algoritmos/",
                 filetype=(("Text File", "*.txt"), ("XML Files", "*.xml")),
                 title="Salvar gramatica"
             )
@@ -158,7 +158,7 @@ class ventana_principal(Frame):
         res = messagebox.askyesno("Advertencia","Desea guardar el archivo?")
         if res == True:
             filename = asksaveasfilename(
-                initialdir="C:/PycharmProjects/paradigmas/Algoritmos/",
+                initialdir=os.getcwd()+"/Algoritmos/",
                 filetype=(("Text File", "*.txt"), ("XML Files", "*.xml")),
                 title="Salvar gramatica"
             )
