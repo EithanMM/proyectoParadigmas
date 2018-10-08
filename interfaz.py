@@ -126,7 +126,7 @@ class ventana_principal(Frame):
 
         if self.archivo_actual == "": # si no se selecciono "abrir gramatica" antes.
             filename = asksaveasfilename(
-                initialdir="C:/PycharmProjects/paradigmas/Algoritmos/",
+                initialdir=os.getcwd()+"/Algoritmos/",
                 filetype=(("Text File", "*.txt"), ("XML Files", "*.xml")),
                 title="Salvar gramatica"
             )
@@ -146,7 +146,7 @@ class ventana_principal(Frame):
             fo.write(self.scroll_text.get("1.0", END))
             fo.close()
             self.archivo_actual = ""  # limpiamos la variable
-            mensaje2 = messagebox.showinfo("Mensaje","gramatica guardada")
+            mensaje2 = messagebox.showinfo("Mensaje", "gramatica guardada")
 
     def clear_texts(self):
         res = messagebox.askyesno("Advertencia", "Desea guardar el archivo?")
