@@ -9,7 +9,8 @@ from datetime import datetime
 
 
 class ventana_principal(Frame):
-    global archivo_actual  # variable global que alberga la direccion actual del archivo que se esta modificando
+
+    global archivo_actual #variable global que alberga la direccion actual del archivo que se esta modificando
 
     def __init__(self, master=None):
         Frame.__init__(self, master)
@@ -49,68 +50,52 @@ class ventana_principal(Frame):
         self.scroll_text2.pack()
 
         # botones-alfabeto griego
-        self.button_a = Button(self.master, text="α", state=ACTIVE, width=4, height=5,
-                               command=lambda: self.write_greek_alphabet("α"))
+        self.button_a = Button(self.master, text="α", state=ACTIVE, width=4, height=5, command= lambda: self.write_greek_alphabet("α"))
         self.button_a.pack(side=LEFT)
 
-        self.button_b = Button(self.master, text="β", state=ACTIVE, width=4, height=5,
-                               command=lambda: self.write_greek_alphabet("β"))
+        self.button_b = Button(self.master, text="β", state=ACTIVE, width=4, height=5, command=lambda: self.write_greek_alphabet("β"))
         self.button_b.pack(side=LEFT)
 
-        self.button_c = Button(self.master, text="γ", state=ACTIVE, width=4, height=5,
-                               command=lambda: self.write_greek_alphabet("γ"))
+        self.button_c = Button(self.master, text="γ", state=ACTIVE, width=4, height=5, command=lambda: self.write_greek_alphabet("γ"))
         self.button_c.pack(side=LEFT)
 
-        self.button_d = Button(self.master, text="δ", state=ACTIVE, width=4, height=5,
-                               command=lambda: self.write_greek_alphabet("δ"))
+        self.button_d = Button(self.master, text="δ", state=ACTIVE, width=4, height=5, command=lambda: self.write_greek_alphabet("δ"))
         self.button_d.pack(side=LEFT)
 
-        self.button_e = Button(self.master, text="ε", state=ACTIVE, width=4, height=5,
-                               command=lambda: self.write_greek_alphabet("ε"))
+        self.button_e = Button(self.master, text="ε", state=ACTIVE, width=4, height=5, command=lambda: self.write_greek_alphabet("ε"))
         self.button_e.pack(side=LEFT)
 
-        self.button_f = Button(self.master, text="ζ", state=ACTIVE, width=4, height=5,
-                               command=lambda: self.write_greek_alphabet("ζ"))
+        self.button_f = Button(self.master, text="ζ", state=ACTIVE, width=4, height=5, command=lambda: self.write_greek_alphabet("ζ"))
         self.button_f.pack(side=LEFT)
 
-        self.button_g = Button(self.master, text="η", state=ACTIVE, width=4, height=5,
-                               command=lambda: self.write_greek_alphabet("η"))
+        self.button_g = Button(self.master, text="η", state=ACTIVE, width=4, height=5, command=lambda: self.write_greek_alphabet("η"))
         self.button_g.pack(side=LEFT)
 
-        self.button_g = Button(self.master, text="θ", state=ACTIVE, width=4, height=5,
-                               command=lambda: self.write_greek_alphabet("θ"))
+        self.button_g = Button(self.master, text="θ", state=ACTIVE, width=4, height=5, command=lambda: self.write_greek_alphabet("θ"))
         self.button_g.pack(side=LEFT)
 
-        self.button_g = Button(self.master, text="μ", state=ACTIVE, width=4, height=5,
-                               command=lambda: self.write_greek_alphabet("μ"))
+        self.button_g = Button(self.master, text="μ", state=ACTIVE, width=4, height=5, command=lambda: self.write_greek_alphabet("μ"))
         self.button_g.pack(side=LEFT)
 
-        self.button_g = Button(self.master, text="λ", state=ACTIVE, width=4, height=5,
-                               command=lambda: self.write_greek_alphabet("λ"))
+        self.button_g = Button(self.master, text="λ", state=ACTIVE, width=4, height=5, command=lambda: self.write_greek_alphabet("λ"))
         self.button_g.pack(side=LEFT)
 
-        self.button_g = Button(self.master, text="ξ", state=ACTIVE, width=4, height=5,
-                               command=lambda: self.write_greek_alphabet("ξ"))
+        self.button_g = Button(self.master, text="ξ", state=ACTIVE, width=4, height=5, command=lambda: self.write_greek_alphabet("ξ"))
         self.button_g.pack(side=LEFT)
 
-        self.button_g = Button(self.master, text="π", state=ACTIVE, width=4, height=5,
-                               command=lambda: self.write_greek_alphabet("π"))
+        self.button_g = Button(self.master, text="π", state=ACTIVE, width=4, height=5, command=lambda: self.write_greek_alphabet("π"))
         self.button_g.pack(side=LEFT)
 
-        self.button_g = Button(self.master, text="σ", state=ACTIVE, width=4, height=5,
-                               command=lambda: self.write_greek_alphabet("σ"))
+        self.button_g = Button(self.master, text="σ", state=ACTIVE, width=4, height=5, command=lambda: self.write_greek_alphabet("σ"))
         self.button_g.pack(side=LEFT)
 
-        self.button_g = Button(self.master, text="φ", state=ACTIVE, width=4, height=5,
-                               command=lambda: self.write_greek_alphabet("φ"))
+        self.button_g = Button(self.master, text="φ", state=ACTIVE, width=4, height=5, command=lambda: self.write_greek_alphabet("φ"))
         self.button_g.pack(side=LEFT)
 
-        self.button_g = Button(self.master, text="ψ", state=ACTIVE, width=4, height=5,
-                               command=lambda: self.write_greek_alphabet("ψ"))
+        self.button_g = Button(self.master, text="ψ", state=ACTIVE, width=4, height=5, command=lambda: self.write_greek_alphabet("ψ"))
         self.button_g.pack(side=LEFT)
 
-        self.button_g = Button(self.master, text="ω", state=ACTIVE, width=4, height=5,
-                               command=lambda: self.write_greek_alphabet("ω"))
+        self.button_g = Button(self.master, text="ω", state=ACTIVE, width=4, height=5, command=lambda: self.write_greek_alphabet("ω"))
         self.button_g.pack(side=LEFT)
 
     def write_greek_alphabet(self, temp):
@@ -123,28 +108,30 @@ class ventana_principal(Frame):
             title="Elija una gramatica"
         )
 
-        # muestra en una advertencia, que tipo de algoritmo se esta usando
+        #muestra en el scrolltext de abajo, que tipo de algoritmo se esta usando
         nombre_algoritmo = str(filename)
         nombre_algoritmo = nombre_algoritmo.replace("C:/PycharmProjects/paradigmas/Algoritmos/", "")
+        self.scroll_text2.insert(INSERT, "#algotirmo en uso: "+nombre_algoritmo)
 
-        self.archivo_actual = filename  # guardamos la direccion
+        self.archivo_actual = filename #guardamos la direccion
         # vamos a leer lo que contenga el archivo y se imprime en pantalla.
         fo = open(filename, "r", encoding='utf-8')
         self.scroll_text.insert(INSERT, fo.read())
         fo.close()
 
-        mensaje = messagebox.showinfo("Mensaje", "Algoritmo aplicado: " + nombre_algoritmo)
+    def new_archive(self):
+        print("nuevo archivo")
 
     def modify_archive(self):
 
-        if self.archivo_actual == "":  # si no se selecciono "abrir gramatica" antes.
+        if self.archivo_actual == "": # si no se selecciono "abrir gramatica" antes.
             filename = asksaveasfilename(
-                initialdir=os.getcwd() + "/Algoritmos/",
+                initialdir=os.getcwd()+"/Algoritmos/",
                 filetype=(("Text File", "*.txt"), ("XML Files", "*.xml")),
                 title="Salvar gramatica"
             )
 
-            if not filename:  # si le dio a "cancelar" o la  "x"
+            if not filename: # si le dio a "cancelar" o la  "x"
                 print("archivo no seleccionado")
 
             else:
@@ -159,7 +146,7 @@ class ventana_principal(Frame):
             fo.write(self.scroll_text.get("1.0", END))
             fo.close()
             self.archivo_actual = ""  # limpiamos la variable
-            mensaje2 = messagebox.showinfo("Mensaje","gramatica guardada")
+            mensaje2 = messagebox.showinfo("Mensaje", "gramatica guardada")
 
     def clear_texts(self):
         res = messagebox.askyesno("Advertencia", "Desea guardar el archivo?")
