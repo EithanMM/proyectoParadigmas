@@ -111,13 +111,15 @@ class ventana_principal(Frame):
         #muestra en el scrolltext de abajo, que tipo de algoritmo se esta usando
         nombre_algoritmo = str(filename)
         nombre_algoritmo = nombre_algoritmo.replace("C:/PycharmProjects/paradigmas/Algoritmos/", "")
-        self.scroll_text2.insert(INSERT, "#algotirmo en uso: "+nombre_algoritmo)
+
 
         self.archivo_actual = filename #guardamos la direccion
         # vamos a leer lo que contenga el archivo y se imprime en pantalla.
         fo = open(filename, "r", encoding='utf-8')
         self.scroll_text.insert(INSERT, fo.read())
         fo.close()
+
+        mensa=messagebox.showinfo("", nombre_algoritmo+" cargado")
 
     def new_archive(self):
         print("nuevo archivo")
