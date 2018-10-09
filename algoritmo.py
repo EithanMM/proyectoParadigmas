@@ -10,13 +10,20 @@ class Regla:
         self.marcador = marcador
         self.regla = regla
         self.longitud = len ( marcador )
+    
+    def vivaRusia ( self, cadena ):
+        v1 = self.funcionEspecial ( cadena )
+        if self.isRuleApply ( v1 ):
+            return True
+        else:
+            return False
         
     def funcionEspecial ( self, cadena ):
-        cadenaAuxiliar = self.crearCadenaAuxiliar ( cadena )
+        # cadenaAuxiliar = self.crearCadenaAuxiliar ( cadena )
         auxiliar = self.crearAuxiliar ( cadena )
         posicionDelVector = 0
         posicionDeLaRegla = 0
-        for x in cadenaAuxiliar:
+        for x in cadena:
             if x == self.marcador [ posicionDeLaRegla ]:
                 posicionDeLaRegla = posicionDeLaRegla + 1
                 auxiliar [ posicionDelVector ] = posicionDeLaRegla
@@ -25,7 +32,13 @@ class Regla:
             if posicionDeLaRegla == self.longitud:
                 posicionDeLaRegla = 0
             posicionDelVector = posicionDelVector + 1
-        print ( auxiliar )
+        return auxiliar
+    
+    def isRuleApply ( self, v1 ):
+        for x in v1:
+            if x == self.longitud:
+                return True
+        return False
     
     def crearCadenaAuxiliar ( self, cadena ):
         cadenaAuxiliar = [ ]
@@ -43,8 +56,12 @@ class Regla:
             x = x + 1
         return auxiliar
 
-R1 = Regla ( 'A', 'apple' )
+R1 = Regla ( 'AA', 'apple' )
 
-#R1.funcionEspecial ( 'A' )
-#R1.funcionEspecial ( 'AB' )
-R1.funcionEspecial ( 'ABC' )
+print ( R1.funcionEspecial ( 'ABCABCABCAAA' ) )
+print ( R1.vivaRusia ( 'ABCABCABCAAA' ) )
+
+R2 = Regla ( 'BB', 'apple' )
+
+print ( R2.funcionEspecial ( 'ABCABCABCAAA' ) )
+print ( R2.vivaRusia ( 'ABCABCABCAAA' ) )
