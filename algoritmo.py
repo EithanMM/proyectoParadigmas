@@ -14,9 +14,10 @@ class Regla:
     def vivaRusia ( self, cadena ):
         v1 = self.funcionEspecial ( cadena )
         if self.isRuleApply ( v1 ):
-            return True
+            where = self.whereIsRuleApply ( v1 )
+            return self.ruleApply ( cadena, where )
         else:
-            return False
+            return cadena
         
     def funcionEspecial ( self, cadena ):
         # cadenaAuxiliar = self.crearCadenaAuxiliar ( cadena )
@@ -40,6 +41,27 @@ class Regla:
                 return True
         return False
     
+    def whereIsRuleApply ( self, v1 ):
+        contador = 0
+        for x in v1:
+            if x == self.longitud:
+                if self.longitud == 0:
+                    return contador
+                return ( contador - ( self.longitud - 1 ) )
+            contador = contador + 1
+    
+    def ruleApply ( self, cadena, where ):
+        nuevaCadena = ''
+        contador = 0
+        while contador < len ( cadena ):
+            if contador == where:
+                nuevaCadena = nuevaCadena + self.regla
+                contador = contador + ( self.longitud )
+            else:
+                nuevaCadena = nuevaCadena + cadena [ contador ]
+                contador = contador + 1
+        return nuevaCadena
+    
     def crearCadenaAuxiliar ( self, cadena ):
         cadenaAuxiliar = [ ]
         x = 0
@@ -56,7 +78,7 @@ class Regla:
             x = x + 1
         return auxiliar
 
-R1 = Regla ( 'AA', 'apple' )
+R1 = Regla ( 'A', 'apple' )
 
 print ( R1.funcionEspecial ( 'ABCABCABCAAA' ) )
 print ( R1.vivaRusia ( 'ABCABCABCAAA' ) )
