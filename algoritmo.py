@@ -6,41 +6,45 @@ cadenaDeEntrada = 'DC'
 
 class Regla:
     
-    def __init__( self, etiqueta, regla ):
-        self.etiqueta = etiqueta
+    def __init__( self, marcador, regla ):
+        self.marcador = marcador
         self.regla = regla
-        self.longitud = len ( etiqueta )
+        self.longitud = len ( marcador )
         
     def funcionEspecial ( self, cadena ):
-        auxiliar = self.crearAuxiliar ( )
-        contador = 0
-        contadorDeEtiqueta = 0
-        for x in cadena:
-            if x == self.etiqueta [ contadorDeEtiqueta ]:
-                auxiliar [ contadorDeEtiqueta ] = bool ( 1 )
-                contadorDeEtiqueta = contadorDeEtiqueta + 1
-        contador = contador + 1
-        return self.cantidadDeMatches ( auxiliar )
+        cadenaAuxiliar = self.crearCadenaAuxiliar ( cadena )
+        auxiliar = self.crearAuxiliar ( cadena )
+        posicionDelVector = 0
+        posicionDeLaRegla = 0
+        for x in cadenaAuxiliar:
+            if x == self.marcador [ posicionDeLaRegla ]:
+                posicionDeLaRegla = posicionDeLaRegla + 1
+                auxiliar [ posicionDelVector ] = posicionDeLaRegla
+            else:
+                posicionDeLaRegla = 0
+            if posicionDeLaRegla == self.longitud:
+                posicionDeLaRegla = 0
+            posicionDelVector = posicionDelVector + 1
+        print ( auxiliar )
     
-    def crearAuxiliar ( self ):
+    def crearCadenaAuxiliar ( self, cadena ):
+        cadenaAuxiliar = [ ]
+        x = 0
+        while x < len ( cadena ):
+            cadenaAuxiliar.append ( cadena [ x ] )
+            x = x + 1
+        return cadenaAuxiliar
+    
+    def crearAuxiliar ( self, cadenaDeEntrada ):
         auxiliar = [ ]
-        for x in self.etiqueta:
-            auxiliar.append ( bool ( 0 ) )
+        x = 0
+        while x < len ( cadenaDeEntrada ):
+            auxiliar.append ( 0 )
+            x = x + 1
         return auxiliar
-
-    def cantidadDeMatches ( self, lista ):
-        matches = 0
-        for x in lista:
-            if x == bool ( 1 ):
-                matches = matches = 1
-        if self.longitud == matches:
-            return bool ( 1 )
-        else:
-            return bool ( 0 )
 
 R1 = Regla ( 'A', 'apple' )
 
-print ( R1.funcionEspecial ( 'A' ) )
-print ( R1.etiqueta )
-print ( R1.regla )
-print ( R1.longitud )
+#R1.funcionEspecial ( 'A' )
+#R1.funcionEspecial ( 'AB' )
+R1.funcionEspecial ( 'ABC' )
