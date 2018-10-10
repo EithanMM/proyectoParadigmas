@@ -5,6 +5,7 @@ from tkinter import Menu
 from tkinter.filedialog import askopenfilename
 from tkinter.filedialog import asksaveasfilename
 from tkinter import messagebox
+
 from datetime import datetime
 
 
@@ -170,3 +171,12 @@ class ventana_principal(Frame):
             self.scroll_text.delete("1.0", END)
             self.scroll_text2.delete("1.0", END)
             print("campos limpiados")
+
+
+
+# Este es el nuevo Main
+if __name__ == "__main__":
+    root = Tk()
+    root.geometry("600x600")
+    app = ventana_principal(root)
+    root.mainloop()
