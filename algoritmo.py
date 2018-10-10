@@ -6,41 +6,84 @@ cadenaDeEntrada = 'DC'
 
 class Regla:
     
-    def __init__( self, etiqueta, regla ):
-        self.etiqueta = etiqueta
+    def __init__( self, marcador, regla ):
+        self.marcador = marcador
         self.regla = regla
-        self.longitud = len ( etiqueta )
+        self.longitud = len ( marcador )
+    
+    def vivaRusia ( self, cadena ):
+        v1 = self.funcionEspecial ( cadena )
+        if self.isRuleApply ( v1 ):
+            where = self.whereIsRuleApply ( v1 )
+            return self.ruleApply ( cadena, where )
+        else:
+            return cadena
         
     def funcionEspecial ( self, cadena ):
-        auxiliar = self.crearAuxiliar ( )
-        contador = 0
-        contadorDeEtiqueta = 0
+        # cadenaAuxiliar = self.crearCadenaAuxiliar ( cadena )
+        auxiliar = self.crearAuxiliar ( cadena )
+        posicionDelVector = 0
+        posicionDeLaRegla = 0
         for x in cadena:
-            if x == self.etiqueta [ contadorDeEtiqueta ]:
-                auxiliar [ contadorDeEtiqueta ] = bool ( 1 )
-                contadorDeEtiqueta = contadorDeEtiqueta + 1
-        contador = contador + 1
-        return self.cantidadDeMatches ( auxiliar )
-    
-    def crearAuxiliar ( self ):
-        auxiliar = [ ]
-        for x in self.etiqueta:
-            auxiliar.append ( bool ( 0 ) )
+            if x == self.marcador [ posicionDeLaRegla ]:
+                posicionDeLaRegla = posicionDeLaRegla + 1
+                auxiliar [ posicionDelVector ] = posicionDeLaRegla
+            else:
+                posicionDeLaRegla = 0
+            if posicionDeLaRegla == self.longitud:
+                posicionDeLaRegla = 0
+            posicionDelVector = posicionDelVector + 1
         return auxiliar
-
-    def cantidadDeMatches ( self, lista ):
-        matches = 0
-        for x in lista:
-            if x == bool ( 1 ):
-                matches = matches = 1
-        if self.longitud == matches:
-            return bool ( 1 )
-        else:
-            return bool ( 0 )
+    
+    def isRuleApply ( self, v1 ):
+        for x in v1:
+            if x == self.longitud:
+                return True
+        return False
+    
+    def whereIsRuleApply ( self, v1 ):
+        contador = 0
+        for x in v1:
+            if x == self.longitud:
+                if self.longitud == 0:
+                    return contador
+                return ( contador - ( self.longitud - 1 ) )
+            contador = contador + 1
+    
+    def ruleApply ( self, cadena, where ):
+        nuevaCadena = ''
+        contador = 0
+        while contador < len ( cadena ):
+            if contador == where:
+                nuevaCadena = nuevaCadena + self.regla
+                contador = contador + ( self.longitud )
+            else:
+                nuevaCadena = nuevaCadena + cadena [ contador ]
+                contador = contador + 1
+        return nuevaCadena
+    
+    def crearCadenaAuxiliar ( self, cadena ):
+        cadenaAuxiliar = [ ]
+        x = 0
+        while x < len ( cadena ):
+            cadenaAuxiliar.append ( cadena [ x ] )
+            x = x + 1
+        return cadenaAuxiliar
+    
+    def crearAuxiliar ( self, cadenaDeEntrada ):
+        auxiliar = [ ]
+        x = 0
+        while x < len ( cadenaDeEntrada ):
+            auxiliar.append ( 0 )
+            x = x + 1
+        return auxiliar
 
 R1 = Regla ( 'A', 'apple' )
 
-print ( R1.funcionEspecial ( 'A' ) )
-print ( R1.etiqueta )
-print ( R1.regla )
-print ( R1.longitud )
+print ( R1.funcionEspecial ( 'ABCABCABCAAA' ) )
+print ( R1.vivaRusia ( 'ABCABCABCAAA' ) )
+
+R2 = Regla ( 'BB', 'apple' )
+
+print ( R2.funcionEspecial ( 'ABCABCABCAAA' ) )
+print ( R2.vivaRusia ( 'ABCABCABCAAA' ) )
