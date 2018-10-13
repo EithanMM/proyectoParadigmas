@@ -11,12 +11,23 @@ class Regla:
         self.longitud = len ( marcador )
     
     def vivaRusia ( self, cadena ):
-        v1 = self.funcionEspecial ( cadena )
+        if self.withVariables ( ):
+            print ( 'No tengo idea de como resolver esto.' )
+            return None
+        else:
+            v1 = self.funcionEspecial ( cadena )
         if self.isRuleApply ( v1 ):
             where = self.whereIsRuleApply ( v1 )
             return self.ruleApply ( cadena, where )
         else:
             return cadena
+    
+    def withVariables ( self ):
+        for x in self.marcadorOriginal:
+            for y in variables:
+                if x == y:
+                    return True
+        return False
         
     def funcionEspecial ( self, cadena ):
         # cadenaAuxiliar = self.crearCadenaAuxiliar ( cadena )
@@ -85,10 +96,10 @@ class Regla:
             x = x + 1
         return auxiliar
 
-# R1 = Regla ( 'A', 'apple' )
+R1 = Regla ( 'AAA', 'apple' )
 
-# print ( R1.funcionEspecial ( 'ABCABCABCAAA' ) )
-# print ( R1.vivaRusia ( 'ABCABCABCAAA' ) )
+print ( R1.funcionEspecial ( 'ABCABCABCAAA' ) )
+print ( R1.vivaRusia ( 'ABCABCABCAAA' ) )
 
 R2 = Regla ( 'xyA', 'apple' )
 
