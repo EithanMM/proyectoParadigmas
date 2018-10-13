@@ -1,12 +1,11 @@
 #Autores: Justin Vega Madrigal (116550095)
 
-marcadores=['A', 'B', 'C', 'D', "theshop"]
-reglas = [ 'apple', 'bag', 'shop', "the", "mybrother"]
-cadenaDeEntrada = 'DC'
+variables = [ 'x', 'y', 'z' ]
 
 class Regla:
     
     def __init__( self, marcador, regla ):
+        self.marcadorOriginal = marcador
         self.marcador = marcador
         self.regla = regla
         self.longitud = len ( marcador )
@@ -25,7 +24,8 @@ class Regla:
         posicionDelVector = 0
         posicionDeLaRegla = 0
         for x in cadena:
-            if x == self.marcador [ posicionDeLaRegla ]:
+            if self.isMatch ( x, self.marcador [ posicionDeLaRegla ] ):
+            # if x == self.marcador [ posicionDeLaRegla ]:
                 posicionDeLaRegla = posicionDeLaRegla + 1
                 auxiliar [ posicionDelVector ] = posicionDeLaRegla
             else:
@@ -34,6 +34,13 @@ class Regla:
                 posicionDeLaRegla = 0
             posicionDelVector = posicionDelVector + 1
         return auxiliar
+    
+    def isMatch ( self, posicionDeLaCadena, posicionDeLaRegla ):
+        # print ( posicionDeLaCadena + ' == ' + posicionDeLaRegla )
+        if posicionDeLaCadena == posicionDeLaRegla:
+            return True
+        else:
+            return False
     
     def isRuleApply ( self, v1 ):
         for x in v1:
@@ -78,12 +85,12 @@ class Regla:
             x = x + 1
         return auxiliar
 
-R1 = Regla ( 'A', 'apple' )
+# R1 = Regla ( 'A', 'apple' )
 
-print ( R1.funcionEspecial ( 'ABCABCABCAAA' ) )
-print ( R1.vivaRusia ( 'ABCABCABCAAA' ) )
+# print ( R1.funcionEspecial ( 'ABCABCABCAAA' ) )
+# print ( R1.vivaRusia ( 'ABCABCABCAAA' ) )
 
-R2 = Regla ( 'BB', 'apple' )
+R2 = Regla ( 'xyA', 'apple' )
 
-print ( R2.funcionEspecial ( 'ABCABCABCAAA' ) )
-print ( R2.vivaRusia ( 'ABCABCABCAAA' ) )
+print ( R2.funcionEspecial ( 'ABCABCABC' ) )
+print ( R2.vivaRusia ( 'ABCABCABC' ) )
