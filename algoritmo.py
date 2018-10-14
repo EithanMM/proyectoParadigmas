@@ -11,7 +11,7 @@ class Regla:
         self.longitud = len ( marcador )
     
     def vivaRusia ( self, cadena ):
-        if self.withVariables ( ):
+        if self.isVariable ( self.marcadorOriginal [ 0 ] ):
             print ( 'No tengo idea de como resolver esto.' )
             return None
         else:
@@ -22,11 +22,10 @@ class Regla:
         else:
             return cadena
     
-    def withVariables ( self ):
-        for x in self.marcadorOriginal:
-            for y in variables:
-                if x == y:
-                    return True
+    def isVariable ( self, otraX ):
+        for x in variables:
+            if x == otraX:
+                return True
         return False
         
     def funcionEspecial ( self, cadena ):
