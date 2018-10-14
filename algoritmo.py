@@ -34,6 +34,9 @@ class Regla:
         posicionDelVector = 0
         posicionDeLaRegla = 0
         for x in cadena:
+            print ( self.marcador [ posicionDeLaRegla ] )
+            if self.isVariable ( self.marcador [ posicionDeLaRegla ] ):
+                print ( '¡Una variable!' )
             if self.isMatch ( x, self.marcador [ posicionDeLaRegla ] ):
             # if x == self.marcador [ posicionDeLaRegla ]:
                 posicionDeLaRegla = posicionDeLaRegla + 1
@@ -44,6 +47,9 @@ class Regla:
                 posicionDeLaRegla = 0
             posicionDelVector = posicionDelVector + 1
         return auxiliar
+    
+    def fixMarker ( self, antes, despues ):
+        print ( 'Ejecutando "fixMarker"')
     
     def isMatch ( self, posicionDeLaCadena, posicionDeLaRegla ):
         # print ( posicionDeLaCadena + ' == ' + posicionDeLaRegla )
@@ -95,12 +101,12 @@ class Regla:
             x = x + 1
         return auxiliar
 
-R1 = Regla ( 'AAA', 'apple' )
+# R1 = Regla ( 'AAA', 'apple' )
 
-print ( R1.funcionEspecial ( 'ABCABCABCAAA' ) )
-print ( R1.vivaRusia ( 'ABCABCABCAAA' ) )
+# print ( R1.funcionEspecial ( 'ABCABCABCAAA' ) )
+# print ( R1.vivaRusia ( 'ABCABCABCAAA' ) )
 
-R2 = Regla ( 'xyA', 'apple' )
+R2 = Regla ( 'Bxy', 'apple' )
 
-print ( R2.funcionEspecial ( 'ABCABCABC' ) )
-print ( R2.vivaRusia ( 'ABCABCABC' ) )
+print ( R2.funcionEspecial ( 'ABCA' ) )
+print ( R2.vivaRusia ( 'ABCA' ) )
