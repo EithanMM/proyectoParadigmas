@@ -12,8 +12,19 @@ class Regla:
     
     def vivaRusia ( self, cadena ):
         if self.isVariable ( self.marcadorOriginal [ 0 ] ):
-            print ( 'No tengo idea de como resolver esto.' )
-            return None
+            cadenaAuxiliar = cadena
+            contador = 0
+            while contador < len ( cadena ):
+                v1 = self.funcionEspecial ( cadenaAuxiliar )
+                print ( self.marcador )
+                print ( cadenaAuxiliar )
+                print ( v1 )
+                if self.isRuleApply ( v1 ):
+                    return None
+                else:
+                    cadenaAuxiliar = cadena [ contador : len ( cadena ) ]
+                    contador = contador + 1
+                    self.marcador = self.marcadorOriginal
         else:
             v1 = self.funcionEspecial ( cadena )
         if self.isRuleApply ( v1 ):
@@ -50,7 +61,7 @@ class Regla:
         return auxiliar
     
     def fixMarker ( self, antes, despues ):
-        print ( antes + '->' + despues )
+        # print ( antes + '->' + despues )
         auxiliar = ''
         for x in self.marcadorOriginal:
             if x == antes:
@@ -58,7 +69,7 @@ class Regla:
             else:
                 auxiliar = auxiliar + x
         self.marcador = auxiliar
-        print ( auxiliar )
+        # print ( auxiliar )
     
     def isMatch ( self, posicionDeLaCadena, posicionDeLaRegla ):
         # print ( posicionDeLaCadena + ' == ' + posicionDeLaRegla )
@@ -115,7 +126,7 @@ class Regla:
 # print ( R1.funcionEspecial ( 'ABCABCABCAAA' ) )
 # print ( R1.vivaRusia ( 'ABCABCABCAAA' ) )
 
-R2 = Regla ( 'Bxy', 'apple' )
+R2 = Regla ( 'xyA', 'apple' )
 
-print ( R2.funcionEspecial ( 'ABCA' ) )
+# print ( R2.funcionEspecial ( 'ABCA' ) )
 print ( R2.vivaRusia ( 'ABCA' ) )
