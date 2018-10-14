@@ -34,9 +34,10 @@ class Regla:
         posicionDelVector = 0
         posicionDeLaRegla = 0
         for x in cadena:
-            print ( self.marcador [ posicionDeLaRegla ] )
+            # print ( self.marcador [ posicionDeLaRegla ] )
             if self.isVariable ( self.marcador [ posicionDeLaRegla ] ):
-                print ( '¡Una variable!' )
+                # print ( '¡Una variable!' )
+                self.fixMarker ( self.marcador [ posicionDeLaRegla ], x )
             if self.isMatch ( x, self.marcador [ posicionDeLaRegla ] ):
             # if x == self.marcador [ posicionDeLaRegla ]:
                 posicionDeLaRegla = posicionDeLaRegla + 1
@@ -49,7 +50,15 @@ class Regla:
         return auxiliar
     
     def fixMarker ( self, antes, despues ):
-        print ( 'Ejecutando "fixMarker"')
+        print ( antes + '->' + despues )
+        auxiliar = ''
+        for x in self.marcadorOriginal:
+            if x == antes:
+                auxiliar = auxiliar + despues
+            else:
+                auxiliar = auxiliar + x
+        self.marcador = auxiliar
+        print ( auxiliar )
     
     def isMatch ( self, posicionDeLaCadena, posicionDeLaRegla ):
         # print ( posicionDeLaCadena + ' == ' + posicionDeLaRegla )
