@@ -12,19 +12,11 @@ class Regla:
     
     def vivaRusia ( self, cadena ):
         if self.isVariable ( self.marcadorOriginal [ 0 ] ):
-            cadenaAuxiliar = cadena
-            contador = 0
-            while contador < len ( cadena ):
-                v1 = self.funcionEspecial ( cadenaAuxiliar )
-                print ( self.marcador )
-                print ( cadenaAuxiliar )
-                print ( v1 )
-                if self.isRuleApply ( v1 ):
-                    return None
-                else:
-                    cadenaAuxiliar = cadena [ contador : len ( cadena ) ]
-                    contador = contador + 1
-                    self.marcador = self.marcadorOriginal
+            where = self.whereIsRuleApplyWithVariables ( cadena )
+            if where == None:
+                return cadena
+            else:
+                return self.ruleApply ( cadena, where )
         else:
             v1 = self.funcionEspecial ( cadena )
         if self.isRuleApply ( v1 ):
@@ -32,6 +24,23 @@ class Regla:
             return self.ruleApply ( cadena, where )
         else:
             return cadena
+    
+    def whereIsRuleApplyWithVariables ( self, cadena ):
+        cadenaAuxiliar = cadena
+        contador = 0
+        while contador < len ( cadena ):
+            if contador > ( len ( cadena ) - self.longitud ):
+                return None
+            v1 = self.funcionEspecial ( cadenaAuxiliar )
+            print ( self.marcador )
+            print ( cadenaAuxiliar )
+            print ( v1 )
+            if self.isRuleApply ( v1 ):
+                return contador
+            else:
+                cadenaAuxiliar = cadena [ contador + 1: len ( cadena ) ]
+                contador = contador + 1
+                self.marcador = self.marcadorOriginal
     
     def isVariable ( self, otraX ):
         for x in variables:
