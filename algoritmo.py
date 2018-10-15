@@ -19,11 +19,11 @@ class Regla:
                 return self.ruleApply ( cadena, where )
         else:
             v1 = self.funcionEspecial ( cadena )
-        if self.isRuleApply ( v1 ):
-            where = self.whereIsRuleApply ( v1 )
-            return self.ruleApply ( cadena, where )
-        else:
-            return cadena
+            if self.isRuleApply ( v1 ):
+                where = self.whereIsRuleApply ( v1 )
+                return self.ruleApply ( cadena, where )
+            else:
+                return cadena
     
     def whereIsRuleApplyWithVariables ( self, cadena ):
         cadenaAuxiliar = cadena
@@ -55,9 +55,10 @@ class Regla:
         posicionDeLaRegla = 0
         for x in cadena:
             # print ( self.marcador [ posicionDeLaRegla ] )
-            if self.isVariable ( self.marcador [ posicionDeLaRegla ] ):
+            if self.isVariable ( self.marcador [ posicionDeLaRegla ] ) and not x in self.marcadorOriginal:
                 # print ( '¡Una variable!' )
-                self.fixMarker ( self.marcador [ posicionDeLaRegla ], x )
+                # self.fixMarker ( self.marcador [ posicionDeLaRegla ], x )
+                self.marcador = self.marcador.replace ( self.marcadorOriginal [ posicionDeLaRegla], x )
             if self.isMatch ( x, self.marcador [ posicionDeLaRegla ] ):
             # if x == self.marcador [ posicionDeLaRegla ]:
                 posicionDeLaRegla = posicionDeLaRegla + 1
@@ -135,7 +136,7 @@ class Regla:
 # print ( R1.funcionEspecial ( 'ABCABCABCAAA' ) )
 # print ( R1.vivaRusia ( 'ABCABCABCAAA' ) )
 
-R2 = Regla ( 'xyA', 'apple' )
+R2 = Regla ( 'Axy', 'apple' )
 
 # print ( R2.funcionEspecial ( 'ABCA' ) )
-print ( R2.vivaRusia ( 'ABCA' ) )
+print ( R2.vivaRusia ( 'BCBCAAABCA' ) )
