@@ -35,12 +35,22 @@ class Regla:
             print ( self.marcador )
             print ( cadenaAuxiliar )
             print ( v1 )
-            if self.isRuleApply ( v1 ):
+            if self.isRuleApplyWithVariables ( v1 ):
                 return contador
             else:
                 cadenaAuxiliar = cadena [ contador + 1: len ( cadena ) ]
                 contador = contador + 1
                 self.marcador = self.marcadorOriginal
+    
+    def isRuleApplyWithVariables ( self, v1 ):
+        contador = 0
+        while contador < len ( v1 ) and v1 [ contador ] != 0:
+            contador = contador + 1
+        # print ( contador )
+        if contador == self.longitud:
+            return True
+        else:
+            return False
     
     def isVariable ( self, otraX ):
         for x in variables:
@@ -136,9 +146,10 @@ class Regla:
 # print ( R1.funcionEspecial ( 'ABCABCABCAAA' ) )
 # print ( R1.vivaRusia ( 'ABCABCABCAAA' ) )
 
-R2 = Regla ( 'Axy', 'apple' )
+R2 = Regla ( 'xyA', 'apple' )
 C1 = 'BCBCAAABCA'
 
 print ( R2.marcadorOriginal + ' -> ' + R2.regla )
 print ( C1 )
 print ( R2.vivaRusia ( C1 ) )
+print ( C1 )
