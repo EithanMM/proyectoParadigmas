@@ -33,9 +33,9 @@ class Regla:
             if contador > ( len ( cadena ) - self.longitud ):
                 return None
             v1 = self.funcionEspecial ( cadenaAuxiliar )
-            print ( self.marcador )
-            print ( cadenaAuxiliar )
-            print ( v1 )
+            # print ( self.marcador )
+            # print ( cadenaAuxiliar )
+            # print ( v1 )
             if self.isRuleApplyWithVariables ( v1 ):
                 return contador
             else:
@@ -45,7 +45,7 @@ class Regla:
     
     def isRuleApplyWithVariables ( self, v1 ):
         contador = 0
-        while contador < len ( v1 ) and v1 [ contador ] != 0:
+        while v1 [ contador ] != 0 and contador + 1 == v1 [ contador ]:
             contador = contador + 1
         # print ( contador )
         if contador == self.longitud:
@@ -66,7 +66,7 @@ class Regla:
         posicionDeLaRegla = 0
         for x in cadena:
             # print ( self.marcador [ posicionDeLaRegla ] )
-            if self.isVariable ( self.marcador [ posicionDeLaRegla ] ) and not x in self.marcadorOriginal:
+            if self.isVariable ( self.marcador [ posicionDeLaRegla ] ) and not x in self.marcador:
                 # print ( '¡Una variable!' )
                 # self.fixMarker ( self.marcador [ posicionDeLaRegla ], x )
                 self.marcador = self.marcador.replace ( self.marcadorOriginal [ posicionDeLaRegla], x )

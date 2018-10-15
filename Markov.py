@@ -9,25 +9,23 @@ class Markov:
         self.reglaSiguiente = 0
     
     def runAlgorithm ( self, cadena, cadenaAuxiliar, isEndRule, count ):
-        print ( cadena )
-        print ( cadenaAuxiliar )
-        print ( isEndRule )
-        print ( count )
-        print ( '----------')
+        ideaDeEithan = cadenaAuxiliar
         if isEndRule:
-            return cadenaAuxiliar
+            return ideaDeEithan
         elif count == len ( self.reglas ):
-            return cadenaAuxiliar
+            return ideaDeEithan
         elif cadena == cadenaAuxiliar:
-            self.runAlgorithm ( cadenaAuxiliar, self.reglas [ count ].vivaRusia ( cadenaAuxiliar ), self.reglas [ count ].isEnd, count + 1 )
+            return self.runAlgorithm ( cadenaAuxiliar, self.reglas [ count ].vivaRusia ( cadenaAuxiliar ), self.reglas [ count ].isEnd, count + 1 )
         else:
-            self.runAlgorithm ( cadenaAuxiliar, self.reglas [ 0 ].vivaRusia ( cadenaAuxiliar), self.reglas [ 0 ].isEnd, 0 )
+            return self.runAlgorithm ( cadenaAuxiliar, self.reglas [ 0 ].vivaRusia ( cadenaAuxiliar), self.reglas [ 0 ].isEnd, 0 )
 
-
-R1 = Regla ( 'A', 'apple', False )
+C1 = 'ABBABB'
+R1 = Regla ( 'xyA', 'apple', False )
+print ( R1.vivaRusia ( C1 ) )
 print ( R1.marcador + ' -> ' + R1.regla )
 R2 = Regla ( 'B', 'banana', True )
 print ( R2.marcadorOriginal + ' -> ' + R2.regla )
 
 M1 = Markov ( ( R1, R2 ) )
-print ( M1.runAlgorithm ( 'AB', 'AB', False, 0 ) )
+Aux = M1.runAlgorithm ( C1, C1, False, 0 )
+print ( Aux )
