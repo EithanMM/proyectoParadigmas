@@ -137,6 +137,8 @@ class Regla:
 # print ( R1.vivaRusia ( 'ABCABCABCAAA' ) )
 
 R2 = Regla ( 'Axy', 'apple' )
+C1 = 'BCBCAAABCA'
 
-# print ( R2.funcionEspecial ( 'ABCA' ) )
-print ( R2.vivaRusia ( 'BCBCAAABCA' ) )
+print ( R2.marcadorOriginal + ' -> ' + R2.regla )
+print ( C1 )
+print ( R2.vivaRusia ( C1 ) )
