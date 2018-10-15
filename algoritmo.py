@@ -4,11 +4,12 @@ variables = [ 'x', 'y', 'z' ]
 
 class Regla:
     
-    def __init__( self, marcador, regla ):
+    def __init__( self, marcador, regla, isEnd ):
         self.marcadorOriginal = marcador
         self.marcador = marcador
         self.regla = regla
         self.longitud = len ( marcador )
+        self.isEnd = isEnd
     
     def vivaRusia ( self, cadena ):
         if self.isVariable ( self.marcadorOriginal [ 0 ] ):
@@ -146,10 +147,10 @@ class Regla:
 # print ( R1.funcionEspecial ( 'ABCABCABCAAA' ) )
 # print ( R1.vivaRusia ( 'ABCABCABCAAA' ) )
 
-R2 = Regla ( 'xyA', 'apple' )
-C1 = 'BCBCAAABCA'
+# R2 = Regla ( 'xyA', 'apple' )
+# C1 = 'BCBCAAABCA'
 
-print ( R2.marcadorOriginal + ' -> ' + R2.regla )
-print ( C1 )
-print ( R2.vivaRusia ( C1 ) )
-print ( C1 )
+# print ( R2.marcadorOriginal + ' -> ' + R2.regla )
+# print ( C1 )
+# print ( R2.vivaRusia ( C1 ) )
+# print ( C1 )
