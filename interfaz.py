@@ -24,7 +24,7 @@ class ventana_principal(Frame):
 
     def init_window(self):
         self.master.title("Proyecto Paradigmas")
-        self.pack(fill=BOTH, expand=1)
+        # self.pack(fill=BOTH, expand=1)
 
         # creamos una instancia del menu
         menu = Menu(self.master)
@@ -44,60 +44,62 @@ class ventana_principal(Frame):
         menu.add_cascade(label="Editar", menu=item2)
         item2.add_command(label="Editar Gramatica", command=self.open_archive)
 
-        # campos de texto
-        self.scroll_text = scrolledtext.ScrolledText(self.master, width=97, height=18)
-        self.scroll_text.pack()
-        self.scroll_text2 = scrolledtext.ScrolledText(self.master, width=97, height=17)
-        self.scroll_text2.pack()
 
-        # botones-alfabeto griego
-        self.button_a = Button(self.master, text="α", state=ACTIVE, width=4, height=5, command= lambda: self.write_greek_alphabet("α"))
-        self.button_a.pack(side=LEFT)
+        # CAMPOS DE TEXTO
+        self.scroll_text = scrolledtext.ScrolledText(self.master)
+        self.scroll_text.place(x=0, y=0, width=300, height=300)
 
-        self.button_b = Button(self.master, text="β", state=ACTIVE, width=4, height=5, command=lambda: self.write_greek_alphabet("β"))
-        self.button_b.pack(side=LEFT)
+        self.scroll_text2 = scrolledtext.ScrolledText(self.master)
+        self.scroll_text2.place(x=0, y=300, width=600, height=270)
 
-        self.button_c = Button(self.master, text="γ", state=ACTIVE, width=4, height=5, command=lambda: self.write_greek_alphabet("γ"))
-        self.button_c.pack(side=LEFT)
+        # INPUT PARA EL USUARIO
+        self.user_input = Entry(self.master)
+        self.user_input.place(x=300, y=0, width=290, height=50)
 
-        self.button_d = Button(self.master, text="δ", state=ACTIVE, width=4, height=5, command=lambda: self.write_greek_alphabet("δ"))
-        self.button_d.pack(side=LEFT)
+        # BOTONES PARA EVALUAR
+        self.btn_paso_paso = Button(self.master, text="Evaluar paso a paso", state=ACTIVE, width=15, height=1,  bd=2, bg="chartreuse2", fg="firebrick1")
+        self.btn_paso_paso.place(x=298, y=60)
 
-        self.button_e = Button(self.master, text="ε", state=ACTIVE, width=4, height=5, command=lambda: self.write_greek_alphabet("ε"))
-        self.button_e.pack(side=LEFT)
+        self.btn_eval_golpe = Button(self.master, text="Evaluar", state=ACTIVE, width=15, height=1, bd=2,  bg="chartreuse2", fg="firebrick1")
+        self.btn_eval_golpe.place(x=470, y=60)
 
-        self.button_f = Button(self.master, text="ζ", state=ACTIVE, width=4, height=5, command=lambda: self.write_greek_alphabet("ζ"))
-        self.button_f.pack(side=LEFT)
+        #BOTONES LETRAS GRIEGAS
+        self.button_a = Button(self.master, text="α", state=ACTIVE, width=3, height=1, command= lambda: self.write_greek_alphabet("α"))
+        self.button_b = Button(self.master, text="β", state=ACTIVE, width=3, height=1, command=lambda: self.write_greek_alphabet("β"))
+        self.button_c = Button(self.master, text="γ", state=ACTIVE, width=3, height=1, command=lambda: self.write_greek_alphabet("γ"))
+        self.button_d = Button(self.master, text="δ", state=ACTIVE, width=3, height=1, command=lambda: self.write_greek_alphabet("δ"))
+        self.button_e = Button(self.master, text="ε", state=ACTIVE, width=3, height=1, command=lambda: self.write_greek_alphabet("ε"))
+        self.button_f = Button(self.master, text="ζ", state=ACTIVE, width=3, height=1, command=lambda: self.write_greek_alphabet("ζ"))
+        self.button_g = Button(self.master, text="η", state=ACTIVE, width=3, height=1, command=lambda: self.write_greek_alphabet("η"))
+        self.button_h = Button(self.master, text="θ", state=ACTIVE, width=3, height=1, command=lambda: self.write_greek_alphabet("θ"))
+        self.button_i = Button(self.master, text="μ", state=ACTIVE, width=3, height=1, command=lambda: self.write_greek_alphabet("μ"))
+        self.button_j = Button(self.master, text="λ", state=ACTIVE, width=3, height=1, command=lambda: self.write_greek_alphabet("λ"))
+        self.button_k = Button(self.master, text="ξ", state=ACTIVE, width=3, height=1, command=lambda: self.write_greek_alphabet("ξ"))
+        self.button_l = Button(self.master, text="π", state=ACTIVE, width=3, height=1, command=lambda: self.write_greek_alphabet("π"))
+        self.button_m = Button(self.master, text="σ", state=ACTIVE, width=3, height=1, command=lambda: self.write_greek_alphabet("σ"))
+        self.button_n = Button(self.master, text="φ", state=ACTIVE, width=3, height=1, command=lambda: self.write_greek_alphabet("φ"))
+        self.button_o = Button(self.master, text="ψ", state=ACTIVE, width=3, height=1, command=lambda: self.write_greek_alphabet("ψ"))
+        self.button_p = Button(self.master, text="ω", state=ACTIVE, width=3, height=1, command=lambda: self.write_greek_alphabet("ω"))
 
-        self.button_g = Button(self.master, text="η", state=ACTIVE, width=4, height=5, command=lambda: self.write_greek_alphabet("η"))
-        self.button_g.pack(side=LEFT)
+        #POSICIONES LETRAS GRIEGAS
 
-        self.button_g = Button(self.master, text="θ", state=ACTIVE, width=4, height=5, command=lambda: self.write_greek_alphabet("θ"))
-        self.button_g.pack(side=LEFT)
+        self.button_a.place(x=0, y=570)
+        self.button_b.place(x=25, y=570)
+        self.button_c.place(x=50, y=570)
+        self.button_d.place(x=75, y=570)
+        self.button_e.place(x=100, y=570)
+        self.button_f.place(x=125, y=570)
+        self.button_g.place(x=150, y=570)
+        self.button_h.place(x=175, y=570)
+        self.button_i.place(x=200, y=570)
+        self.button_j.place(x=225, y=570)
+        self.button_k.place(x=250, y=570)
+        self.button_l.place(x=275, y=570)
+        self.button_m.place(x=300, y=570)
+        self.button_n.place(x=325, y=570)
+        self.button_o.place(x=350, y=570)
+        self.button_p.place(x=375, y=570)
 
-        self.button_g = Button(self.master, text="μ", state=ACTIVE, width=4, height=5, command=lambda: self.write_greek_alphabet("μ"))
-        self.button_g.pack(side=LEFT)
-
-        self.button_g = Button(self.master, text="λ", state=ACTIVE, width=4, height=5, command=lambda: self.write_greek_alphabet("λ"))
-        self.button_g.pack(side=LEFT)
-
-        self.button_g = Button(self.master, text="ξ", state=ACTIVE, width=4, height=5, command=lambda: self.write_greek_alphabet("ξ"))
-        self.button_g.pack(side=LEFT)
-
-        self.button_g = Button(self.master, text="π", state=ACTIVE, width=4, height=5, command=lambda: self.write_greek_alphabet("π"))
-        self.button_g.pack(side=LEFT)
-
-        self.button_g = Button(self.master, text="σ", state=ACTIVE, width=4, height=5, command=lambda: self.write_greek_alphabet("σ"))
-        self.button_g.pack(side=LEFT)
-
-        self.button_g = Button(self.master, text="φ", state=ACTIVE, width=4, height=5, command=lambda: self.write_greek_alphabet("φ"))
-        self.button_g.pack(side=LEFT)
-
-        self.button_g = Button(self.master, text="ψ", state=ACTIVE, width=4, height=5, command=lambda: self.write_greek_alphabet("ψ"))
-        self.button_g.pack(side=LEFT)
-
-        self.button_g = Button(self.master, text="ω", state=ACTIVE, width=4, height=5, command=lambda: self.write_greek_alphabet("ω"))
-        self.button_g.pack(side=LEFT)
 
     def write_greek_alphabet(self, temp):
         self.scroll_text.insert(INSERT, temp)
@@ -178,5 +180,6 @@ class ventana_principal(Frame):
 if __name__ == "__main__":
     root = Tk()
     root.geometry("600x600")
+    root.resizable(0, 0)
     app = ventana_principal(root)
     root.mainloop()
