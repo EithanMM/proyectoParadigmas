@@ -4,10 +4,11 @@ variables = [ 'x', 'y', 'z' ]
 
 class Regla:
     
-    def __init__( self, marcador, regla, isEnd ):
+    def __init__( self, marcador, regla, etiqueta, isEnd ):
         self.marcadorOriginal = marcador
         self.marcador = marcador
         self.regla = regla
+        self.etiqueta = etiqueta
         self.longitud = len ( marcador )
         self.isEnd = isEnd
     

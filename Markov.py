@@ -25,7 +25,7 @@ class Markov:
                 print ( self.reglas [ count ].marcadorOriginal + ' -> ' + self.reglas [ count ].regla + ' : ' + self.reglas [ count ].vivaRusia ( cadenaAuxiliar ) )
                 count = count + 1
             else:
-                print ( self.reglas [ count ].marcadorOriginal + ' -> ' + self.reglas [ count ].regla + ' : ' + self.reglas [ count ].vivaRusia ( cadenaAuxiliar ) )
+                print ( self.reglas [ count ].marcadorOriginal + ' -> ' + self.reglas [ count ].regla + ' : ' + cadenaAuxiliar )
                 cadena = cadenaAuxiliar
                 # Faltan las etiquetas.
                 count = 0
@@ -47,12 +47,13 @@ class Markov:
         self.reglaSiguiente = 0
 
 C1 = 'ABBBB'
-R1 = Regla ( 'A', 'X', False )
-R2 = Regla ( 'XB', 'BX', False )
+R1 = Regla ( 'A', 'X', None, False )
+R2 = Regla ( 'XB', 'BX', None, False )
+R3 = Regla ( 'X', 'Y', None, False )
 
-M1 = Markov ( ( R1, R2 ) )
+M1 = Markov ( ( R1, R2, R3 ) )
 print ( M1.runAlgorithm ( C1 ) )
 
-C1 = M1.algorithmStepByStep ( C1 )
-C1 = M1.algorithmStepByStep ( C1 )
-C1 = M1.algorithmStepByStep ( C1 )
+# C1 = M1.algorithmStepByStep ( C1 )
+# C1 = M1.algorithmStepByStep ( C1 )
+# C1 = M1.algorithmStepByStep ( C1 )
