@@ -27,8 +27,10 @@ class Markov:
             else:
                 print ( self.reglas [ count ].marcadorOriginal + ' -> ' + self.reglas [ count ].regla + ' : ' + cadenaAuxiliar )
                 cadena = cadenaAuxiliar
-                # Faltan las etiquetas.
-                count = 0
+                if self.reglas [ count ].etiqueta != None:
+                    count = self.reglas [ count ].etiqueta - 1
+                else:
+                    count = 0
     
     def algorithmStepByStep ( self, cadena ):
         auxiliar = self.reglaSiguiente
@@ -48,7 +50,7 @@ class Markov:
 
 C1 = 'ABBBB'
 R1 = Regla ( 'A', 'X', None, False )
-R2 = Regla ( 'XB', 'BX', None, False )
+R2 = Regla ( 'XB', 'BX', 2, False )
 R3 = Regla ( 'X', 'Y', None, False )
 
 M1 = Markov ( ( R1, R2, R3 ) )
