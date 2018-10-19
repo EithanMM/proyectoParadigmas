@@ -49,11 +49,13 @@ class Markov:
         self.reglaSiguiente = 0
 
 C1 = 'ABBBB'
-R1 = Regla ( 'A', 'X', None, False )
-R2 = Regla ( 'XB', 'BX', 2, False )
-R3 = Regla ( 'X', 'Y', None, False )
+V1 = ( 'x', 'y', 'z' )
+V2 = [ 'x', 'y', 'z' ]
+R1 = Regla ( 'A', 'X', None, False, V1, V2 )
+R2 = Regla ( 'Xx', 'xX', 2, False, V1, V2 )
+R3 = Regla ( 'X', 'Y', None, False, V1, V2 )
 
-M1 = Markov ( ( R1, R2, R3 ) )
+M1 = Markov ( [ R1, R2, R3 ] )
 print ( M1.runAlgorithm ( C1 ) )
 
 # C1 = M1.algorithmStepByStep ( C1 )

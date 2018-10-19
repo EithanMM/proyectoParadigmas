@@ -1,16 +1,19 @@
 #Autores: Justin Vega Madrigal (116550095)
 
-variables = [ 'x', 'y', 'z' ]
+# variables = [ 'x', 'y', 'z' ]
 
 class Regla:
     
-    def __init__( self, marcador, regla, etiqueta, isEnd ):
+    def __init__( self, marcador, regla, etiqueta, isEnd, variablesOriginales, variables ):
         self.marcadorOriginal = marcador
         self.marcador = marcador
+        self.reglaOriginal = regla
         self.regla = regla
         self.etiqueta = etiqueta
         self.longitud = len ( marcador )
         self.isEnd = isEnd
+        self.variablesOriginales = variablesOriginales
+        self.variables = variables
     
     def vivaRusia ( self, cadena ):
         if self.isVariable ( self.marcadorOriginal [ 0 ] ):
@@ -18,11 +21,15 @@ class Regla:
             if where == None:
                 return cadena
             else:
+                self.regla = self.reglaOriginal
+                self.fixRule ( )
                 return self.ruleApply ( cadena, where )
         else:
             v1 = self.funcionEspecial ( cadena )
             if self.isRuleApply ( v1 ):
                 where = self.whereIsRuleApply ( v1 )
+                # self.regla = self.reglaOriginal
+                self.regla = self.fixRule ( )
                 return self.ruleApply ( cadena, where )
             else:
                 return cadena
@@ -55,7 +62,7 @@ class Regla:
             return False
     
     def isVariable ( self, otraX ):
-        for x in variables:
+        for x in self.variables:
             if x == otraX:
                 return True
         return False
@@ -81,6 +88,31 @@ class Regla:
                 posicionDeLaRegla = 0
             posicionDelVector = posicionDelVector + 1
         return auxiliar
+    
+    def fixRule ( self ):
+        reglaAuxiliar = ''
+        variablesAuxiliares = self.variables
+        contador = 0
+        for x in self.marcadorOriginal:
+            if x in self.variables:
+                otroContador = 0
+                for y in variablesAuxiliares:
+                    if x == y:
+                        variablesAuxiliares [ otroContador ] = self.marcador [ contador ]
+                    otroContador = otroContador + 1
+            contador = contador + 1
+        contador = 0
+        for x in self.reglaOriginal:
+            if x in self.variablesOriginales:
+                otroContador = 0
+                for y in self.variablesOriginales:
+                    if x == y:
+                        reglaAuxiliar = reglaAuxiliar + variablesAuxiliares [ otroContador ]
+                otroContador = otroContador + 1
+            else:
+                reglaAuxiliar = reglaAuxiliar + self.reglaOriginal [ contador ]
+            contador = contador + 1
+        return reglaAuxiliar
     
     def fixMarker ( self, antes, despues ):
         # print ( antes + '->' + despues )
