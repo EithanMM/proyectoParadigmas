@@ -1,7 +1,7 @@
 # Autores: Justin Vega Madrigal ( 116550095 )
 # Diseñador: Justin Vega Madrigal ( 116550095 )
 
-from algoritmo import Regla
+from paradigmas.algoritmo import Regla
 
 class Markov:
 
@@ -12,20 +12,29 @@ class Markov:
     def runAlgorithm ( self, cadena ):
         isEnd = False
         count = 0
+        lista = []
         cadenaAuxiliar = cadena
         while ( isEnd == False ):
             if count + 1 == len ( self.reglas ):
-                print ( self.reglas [ count ].marcadorOriginal + ' -> ' + self.reglas [ count ].regla + ' : ' + self.reglas [ count ].vivaRusia ( cadenaAuxiliar ) )
-                return self.reglas [ count ].vivaRusia ( cadenaAuxiliar )
+                temp = self.reglas [ count ].marcadorOriginal + ' -> ' + self.reglas [ count ].regla + ' : ' + self.reglas [ count ].vivaRusia ( cadenaAuxiliar )
+                temp
+                lista.append(temp)
+                return lista
             elif self.reglas [ count ].isEnd:
-                print ( self.reglas [ count ].marcadorOriginal + ' -> ' + self.reglas [ count ].regla + ' : ' + self.reglas [ count ].vivaRusia ( cadenaAuxiliar ) )
-                return self.reglas [ count ].vivaRusia ( cadenaAuxiliar )
+                temp = self.reglas [ count ].marcadorOriginal + ' -> ' + self.reglas [ count ].regla + ' : ' + self.reglas [ count ].vivaRusia ( cadenaAuxiliar )
+                temp
+                lista.append(temp)
+                return lista
             cadenaAuxiliar = self.reglas [ count ].vivaRusia ( cadenaAuxiliar )
             if cadena == cadenaAuxiliar:
-                print ( self.reglas [ count ].marcadorOriginal + ' -> ' + self.reglas [ count ].regla + ' : ' + self.reglas [ count ].vivaRusia ( cadenaAuxiliar ) )
+                temp = self.reglas [ count ].marcadorOriginal + ' -> ' + self.reglas [ count ].regla + ' : ' + self.reglas [ count ].vivaRusia ( cadenaAuxiliar )
+                temp
+                lista.append(temp)
                 count = count + 1
             else:
-                print ( self.reglas [ count ].marcadorOriginal + ' -> ' + self.reglas [ count ].regla + ' : ' + cadenaAuxiliar )
+                temp = self.reglas [ count ].marcadorOriginal + ' -> ' + self.reglas [ count ].regla + ' : ' + cadenaAuxiliar
+                temp
+                lista.append(temp)
                 cadena = cadenaAuxiliar
                 if self.reglas [ count ].etiqueta != None:
                     count = self.reglas [ count ].etiqueta - 1
@@ -50,10 +59,10 @@ class Markov:
 
 C1 = '00||0|'
 V1 = ( 'x', 'y', 'z' )
-R1 = Regla ( '|0', '0||', None, False, V1 )
+R1 = Regla ( '|0', '0||', None, False, V1)
 print ( R1.vivaRusia ( C1 ) )
-R2 = Regla ( 'Xx', 'xX', 2, False, V1 )
-R3 = Regla ( 'X', 'Y', None, False, V1 )
+R2 = Regla ( 'Xx', 'xX', 2, False, V1)
+R3 = Regla ( 'X', 'Y', None, False, V1)
 
 M1 = Markov ( [ R1, R2, R3 ] )
 # print ( M1.runAlgorithm ( C1 ) )
