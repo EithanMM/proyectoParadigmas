@@ -5,6 +5,8 @@ from tkinter import Menu
 from tkinter.filedialog import askopenfilename
 from tkinter.filedialog import asksaveasfilename
 from tkinter import messagebox
+from paradigmas.algoritmo import Regla
+
 
 from datetime import datetime
 
@@ -12,11 +14,19 @@ from datetime import datetime
 class ventana_principal(Frame):
 
     global archivo_actual #variable global que alberga la direccion actual del archivo que se esta modificando
+    global lista_marcadores
+    global lista_variables
+    global lista_etiquetas
+    global lista_reglas
 
     def __init__(self, master=None):
         Frame.__init__(self, master)
         self.master = master
         self.archivo_actual = ""
+        self.lista_variables = []
+        self.lista_etiquetas = []
+        self.lista_marcadores = []
+        self.lista_reglas = []
         self.init_window()
 
     def salir(self):
@@ -119,6 +129,8 @@ class ventana_principal(Frame):
         self.archivo_actual = filename #guardamos la direccion
         # vamos a leer lo que contenga el archivo y se imprime en pantalla.
         fo = open(filename, "r", encoding='utf-8')
+        self.analyze_text(filename)
+        print(self.lista_reglas)
         self.scroll_text.insert(INSERT, fo.read())
         fo.close()
 
@@ -126,6 +138,26 @@ class ventana_principal(Frame):
 
     def new_archive(self):
         print("nuevo archivo")
+
+    def analyze_text(self, filename):
+
+        with open(filename, "r", encoding='utf-8') as fo:
+            while True:
+                line = fo.readline()
+                if line == '':
+                    break
+                if line.startswith('%'):
+                    continue
+                else:
+                    line.replace('\\n', '')
+                    a = line.split("->")
+                    if -1 != a[1].find('.'):
+                        a[1].replace('.', '')
+                        self.lista_reglas.append(Regla(a[0], a[1]))
+                    else:
+                        self.lista_reglas.append(Regla(a[0], a[1]))
+                    print(a[0])
+                    print(a[1])
 
     def modify_archive(self):
 
