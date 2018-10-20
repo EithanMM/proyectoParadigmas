@@ -67,23 +67,25 @@ class Regla:
         return False
         
     def funcionEspecial ( self, cadena ):
+        bandera = False
         # cadenaAuxiliar = self.crearCadenaAuxiliar ( cadena )
         auxiliar = self.crearAuxiliar ( cadena )
         posicionDelVector = 0
         posicionDeLaRegla = 0
         while posicionDelVector < len ( cadena ):
             # print ( self.marcador [ posicionDeLaRegla ] )
-            if self.isVariable ( self.marcador [ posicionDeLaRegla ] ) and not x in self.marcador:
+            if self.isVariable ( self.marcador [ posicionDeLaRegla ] ) and not cadena[posicionDelVector] in self.marcador:
                 # print ( '¡Una variable!' )
                 # self.fixMarker ( self.marcador [ posicionDeLaRegla ], x )
-                self.marcador = self.marcador.replace ( self.marcadorOriginal [ posicionDeLaRegla], x )
+                self.marcador = self.marcador.replace ( self.marcadorOriginal [ posicionDeLaRegla], cadena[posicionDelVector] )
             if self.isMatch ( cadena [ posicionDelVector ], self.marcador [ posicionDeLaRegla ] ):
             # if x == self.marcador [ posicionDeLaRegla ]:
                 posicionDeLaRegla = posicionDeLaRegla + 1
                 auxiliar [ posicionDelVector ] = posicionDeLaRegla
             else:
                 posicionDeLaRegla = 0
-                if auxiliar [ posicionDelVector - 1 ] != 0:
+                if auxiliar [ posicionDelVector - 1 ] != 0 and bandera == False:
+                    bandera = True
                     posicionDelVector = posicionDelVector - 1
             if posicionDeLaRegla == self.longitud:
                 posicionDeLaRegla = 0
