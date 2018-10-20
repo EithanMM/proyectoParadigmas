@@ -20,8 +20,8 @@ class Regla:
             if where == None:
                 return cadena
             else:
-                self.regla = self.reglaOriginal
-                self.fixRule ( )
+                # self.regla = self.reglaOriginal
+                self.regla = self.fixRule ( )
                 return self.ruleApply ( cadena, where )
         else:
             v1 = self.funcionEspecial ( cadena )
