@@ -48,15 +48,15 @@ class Markov:
     def restart ( self ):
         self.reglaSiguiente = 0
 
-C1 = '00||0|'
+C1 = '101'
 V1 = ( 'x', 'y', 'z' )
 R1 = Regla ( '|0', '0||', None, False, V1 )
-print ( R1.vivaRusia ( C1 ) )
-R2 = Regla ( 'Xx', 'xX', 2, False, V1 )
-R3 = Regla ( 'X', 'Y', None, False, V1 )
+R2 = Regla ( '1', '0|', None, False, V1 )
+R3 = Regla ( '0', '', None, False, V1 )
+R4 = Regla ( 'J', 'justin', None, False, V1 )
 
-M1 = Markov ( [ R1, R2, R3 ] )
-# print ( M1.runAlgorithm ( C1 ) )
+M1 = Markov ( [ R1, R2, R3, R4 ] )
+print ( M1.runAlgorithm ( C1 ) )
 
 # C1 = M1.algorithmStepByStep ( C1 )
 # C1 = M1.algorithmStepByStep ( C1 )
