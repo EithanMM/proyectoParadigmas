@@ -16,6 +16,7 @@ class ventana_principal(Frame):
     global lista_reglas
     global marcadores  # aqui se guardaran todos los simbolos romandos que hay en el programa
     global simbolos  # aqui se guardaran
+    global VG
 
     def __init__(self, master=None):
         Frame.__init__(self, master)
@@ -49,7 +50,7 @@ class ventana_principal(Frame):
         item1.add_command(label="Salir", command=self.salir)
 
         menu.add_cascade(label="Editar", menu=item2)
-        item2.add_command(label="Editar Gramatica", command=self.open_archive)
+        item2.add_command(label="Cargar Gramatica", command=self.open_archive)
 
         # CAMPOS DE TEXTO
         self.scroll_text = scrolledtext.ScrolledText(self.master)
@@ -133,20 +134,38 @@ class ventana_principal(Frame):
             filetypes=(("Text File", "*.txt"), ("XML Files", "*.xml")),
             title="Elija una gramatica"
         )
+        #si la lista de reglas no esta vacia, osea que cargaron otro algoritmo antes.
+        if len(self.lista_reglas)!= 0:
 
-        # muestra en el scrolltext de abajo, que tipo de algoritmo se esta usando
-        nombre_algoritmo = str(filename)
-        nombre_algoritmo = nombre_algoritmo.replace("C:/PycharmProjects/paradigmas/Algoritmos/", "")
+            self.scroll_text.delete("1.0", END)
+            self.scroll_text2.delete("1.0", END)
 
-        self.archivo_actual = filename  # guardamos la direccion
-        # vamos a leer lo que contenga el archivo y se imprime en pantalla.
-        fo = open(filename, "r", encoding='utf-8')
-        self.analyze_text(filename)
-        print(self.lista_reglas)
-        self.scroll_text.insert(INSERT, fo.read())
-        fo.close()
+            del self.lista_reglas[:] #eliminamos cualquier la totalidad de los elementos
+            nombre_algoritmo = str(filename)
+            nombre_algoritmo = nombre_algoritmo.replace("C:/PycharmProjects/paradigmas/Algoritmos/", "")
 
-        mensa = messagebox.showinfo("", nombre_algoritmo + " cargado")
+            self.archivo_actual = filename  # guardamos la direccion
+            fo = open(filename, "r", encoding='utf-8')
+            self.analyze_text(filename)
+            print(self.lista_reglas)
+            self.scroll_text.insert(INSERT, fo.read())
+            fo.close()
+            mensa = messagebox.showinfo("", nombre_algoritmo + " cargado")
+
+        else:
+            # muestra en el scrolltext de abajo, que tipo de algoritmo se esta usando
+            nombre_algoritmo = str(filename)
+            nombre_algoritmo = nombre_algoritmo.replace("C:/PycharmProjects/paradigmas/Algoritmos/", "")
+
+            self.archivo_actual = filename  # guardamos la direccion
+            # vamos a leer lo que contenga el archivo y se imprime en pantalla.
+            fo = open(filename, "r", encoding='utf-8')
+            self.analyze_text(filename)
+            print(self.lista_reglas)
+            self.scroll_text.insert(INSERT, fo.read())
+            fo.close()
+
+            mensa = messagebox.showinfo("", nombre_algoritmo + " cargado")
 
     def new_archive(self):
         print("nuevo archivo")
@@ -156,18 +175,25 @@ class ventana_principal(Frame):
         with open(filename, "r", encoding='utf-8') as fo:
             while True:
                 line = fo.readline()
-                if line == '':
+                if line == '': #si es fin de linea
+                    V1 = ('x', '`', '~')
+                    R = Regla("F", ".", None, False, V1) #agrega una regla extra con cualquier tontera.
+                    self.lista_reglas.append(R)
                     break
                 if line.startswith('%'):
                     continue
                 else:
-                    line.replace('\\n', '')
+                    line = line.strip('\n')
                     a = line.split("->")
                     if -1 != a[1].find('.'):
                         a[1].replace('.', '')
                     else:
                         print(a[0])
                         print(a[1])
+                        V1 = ('x', '`', '~')
+                        R = Regla(a[0], a[1], None, False,V1)
+                        self.lista_reglas.append(R)
+
 
     def modify_archive(self):
 
@@ -215,19 +241,24 @@ class ventana_principal(Frame):
             self.scroll_text.delete("1.0", END)
             self.scroll_text2.delete("1.0", END)
             print("campos limpiados")
+
     def mostrar_resultado(self):
-        marvov = Markov
-        C1 = '101'
-        V1 = ('x', 'y', 'z')
-        V2 = ['x', 'y', 'z']
-        R1 = Regla("|0", "0||", None, False, V1, V2)
-        R2 = Regla("1", "0|", None, False, V1, V2)
-        R3 = Regla("0", "", None, False, V1, V2)
-        R4 = Regla("A", "apple", None, False, V1, V2)
-        M1 = Markov([R1, R2, R3, R4])
-        res = M1.runAlgorithm ( C1 )
-        for x in res:
-            self.scroll_text2.insert(INSERT, x+"\n")
+        #Una vez que se cargue el algoritmo, vamos a obtener la entrada del usuario.
+        text = self.user_input.get()
+        if text == '':
+            messagebox.showinfo("Mensaje", "Digite una cadena a evaluar")
+        else:
+
+            M1 = Markov(self.lista_reglas)
+            res = M1.runAlgorithm ( text )
+            self.scroll_text2.insert(INSERT, "\nReglas - Resultado\n")
+            for x in res:
+                print(x)
+                self.scroll_text2.insert(INSERT, x+"\n")
+
+            x =str(res[-1])
+            x = x.replace(' ', '')
+            self.scroll_text2.insert(INSERT, "Resultado Final: " + x.rsplit(':', -1)[-1])
 
 
 
