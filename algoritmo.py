@@ -4,7 +4,7 @@
 
 class Regla:
     
-    def __init__( self, marcador, regla, etiqueta, isEnd, variablesOriginales, variables ):
+    def __init__( self, marcador, regla, etiqueta, isEnd, variables ):
         self.marcadorOriginal = marcador
         self.marcador = marcador
         self.reglaOriginal = regla
@@ -12,8 +12,7 @@ class Regla:
         self.etiqueta = etiqueta
         self.longitud = len ( marcador )
         self.isEnd = isEnd
-        self.variablesOriginales = variablesOriginales
-        self.variables = variables
+        self.variablesOriginales = variables
     
     def vivaRusia ( self, cadena ):
         if self.isVariable ( self.marcadorOriginal [ 0 ] ):
@@ -62,7 +61,7 @@ class Regla:
             return False
     
     def isVariable ( self, otraX ):
-        for x in self.variables:
+        for x in self.variablesOriginales:
             if x == otraX:
                 return True
         return False
@@ -72,29 +71,38 @@ class Regla:
         auxiliar = self.crearAuxiliar ( cadena )
         posicionDelVector = 0
         posicionDeLaRegla = 0
-        for x in cadena:
+        while posicionDelVector < len ( cadena ):
             # print ( self.marcador [ posicionDeLaRegla ] )
             if self.isVariable ( self.marcador [ posicionDeLaRegla ] ) and not x in self.marcador:
                 # print ( '¡Una variable!' )
                 # self.fixMarker ( self.marcador [ posicionDeLaRegla ], x )
                 self.marcador = self.marcador.replace ( self.marcadorOriginal [ posicionDeLaRegla], x )
-            if self.isMatch ( x, self.marcador [ posicionDeLaRegla ] ):
+            if self.isMatch ( cadena [ posicionDelVector ], self.marcador [ posicionDeLaRegla ] ):
             # if x == self.marcador [ posicionDeLaRegla ]:
                 posicionDeLaRegla = posicionDeLaRegla + 1
                 auxiliar [ posicionDelVector ] = posicionDeLaRegla
             else:
                 posicionDeLaRegla = 0
+                if auxiliar [ posicionDelVector - 1 ] != 0:
+                    posicionDelVector = posicionDelVector - 1
             if posicionDeLaRegla == self.longitud:
                 posicionDeLaRegla = 0
             posicionDelVector = posicionDelVector + 1
+        print ( auxiliar )
         return auxiliar
+    
+    def crearVariablesAuxiliares ( self ):
+        v1 = []
+        for x in self.variablesOriginales:
+            v1.append ( x )
+        return v1
     
     def fixRule ( self ):
         reglaAuxiliar = ''
-        variablesAuxiliares = self.variables
+        variablesAuxiliares = self.crearVariablesAuxiliares ( )
         contador = 0
         for x in self.marcadorOriginal:
-            if x in self.variables:
+            if x in self.variablesOriginales:
                 otroContador = 0
                 for y in variablesAuxiliares:
                     if x == y:
