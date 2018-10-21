@@ -1,7 +1,5 @@
 #Autores: Justin Vega Madrigal (116550095)
 
-# variables = [ 'x', 'y', 'z' ]
-
 class Regla:
     
     def __init__( self, marcador, regla, etiqueta, isEnd, variables ):
@@ -13,6 +11,11 @@ class Regla:
         self.longitud = len ( marcador )
         self.isEnd = isEnd
         self.variablesOriginales = variables
+    
+    def clearString ( self, cadena ):
+        cadenaAuxiliar = self.vivaRusia ( cadena )
+        cadenaAuxiliar = cadenaAuxiliar.replace ( 'Λ', '' )
+        return cadenaAuxiliar
     
     def vivaRusia ( self, cadena ):
         if self.marcadorOriginal == 'Λ':
@@ -76,6 +79,7 @@ class Regla:
         posicionDelVector = 0
         posicionDeLaRegla = 0
         flag = False
+        self.marcador = self.marcadorOriginal
         while posicionDelVector < len ( cadena ):
             # print ( self.marcador [ posicionDeLaRegla ] )
             if self.isVariable ( self.marcador [ posicionDeLaRegla ] ) and not cadena [ posicionDelVector ] in self.marcador:

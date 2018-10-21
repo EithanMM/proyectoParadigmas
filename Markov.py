@@ -20,12 +20,12 @@ class Markov:
                 # return self.reglas [ count ].vivaRusia ( cadenaAuxiliar )
                 return lista
             elif self.reglas [ count ].isEnd:
-                temp = self.reglas [ count ].marcadorOriginal + ' -> ' + self.reglas [ count ].reglaOriginal + ' : ' + self.reglas [ count ].vivaRusia ( cadenaAuxiliar )
+                temp = self.reglas [ count ].marcadorOriginal + ' -> ' + self.reglas [ count ].reglaOriginal + ' : ' + self.reglas [ count ].clearString ( cadenaAuxiliar )
                 lista.append(temp)
                 return lista
-            cadenaAuxiliar = self.reglas [ count ].vivaRusia ( cadenaAuxiliar )
+            cadenaAuxiliar = self.reglas [ count ].clearString ( cadenaAuxiliar )
             if cadena == cadenaAuxiliar:
-                temp = self.reglas [ count ].marcadorOriginal + ' -> ' + self.reglas [ count ].reglaOriginal + ' : ' + self.reglas [ count ].vivaRusia ( cadenaAuxiliar )
+                temp = self.reglas [ count ].marcadorOriginal + ' -> ' + self.reglas [ count ].reglaOriginal + ' : ' + self.reglas [ count ].clearString ( cadenaAuxiliar )
                 lista.append(temp)
                 count = count + 1
             else:
@@ -54,19 +54,15 @@ class Markov:
         self.reglaSiguiente = 0
 
 
-# C1 = 'aAAAAA'
-# V1 = ( 'x', 'y', 'z' )
-# R1 = Regla ( 'a', 'B', None, False, V1 )
-# C1 = R1.vivaRusia ( C1 )
-# print ( C1 )
+C1 = 'Aabc'
+V1 = ( 'x', 'y', 'z' )
+R1 = Regla ( 'Ax', 'xBxA', 1, False, V1 )
 # R2 = Regla ( 'Bx', 'xB', None, False, V1 )
-# C1 = R2.vivaRusia ( C1 )
-# print ( C1 )
-#R3 = Regla ( '0', '', None, False, V1 )
+# R3 = Regla ( '0', '', None, False, V1 )
 # R4 = Regla ( 'J', 'justin', None, False, V1 )
 
-# M1 = Markov ( [ R1, R2 ] )
-# print ( M1.runAlgorithm ( C1 ) )
+M1 = Markov ( [ R1 ] )
+print ( M1.runAlgorithm ( C1 ) )
 
 
 # C1 = M1.algorithmStepByStep ( C1 )
