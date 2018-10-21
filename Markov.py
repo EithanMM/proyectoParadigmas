@@ -20,12 +20,12 @@ class Markov:
                 # return self.reglas [ count ].vivaRusia ( cadenaAuxiliar )
                 return lista
             elif self.reglas [ count ].isEnd:
-                temp = self.reglas [ count ].marcadorOriginal + ' -> ' + self.reglas [ count ].reglaOriginal + ' : ' + self.reglas [ count ].vivaRusia ( cadenaAuxiliar )
+                temp = self.reglas [ count ].marcadorOriginal + ' -> ' + self.reglas [ count ].reglaOriginal + ' : ' + self.reglas [ count ].clearString ( cadenaAuxiliar )
                 lista.append(temp)
                 return lista
-            cadenaAuxiliar = self.reglas [ count ].vivaRusia ( cadenaAuxiliar )
+            cadenaAuxiliar = self.reglas [ count ].clearString ( cadenaAuxiliar )
             if cadena == cadenaAuxiliar:
-                temp = self.reglas [ count ].marcadorOriginal + ' -> ' + self.reglas [ count ].reglaOriginal + ' : ' + self.reglas [ count ].vivaRusia ( cadenaAuxiliar )
+                temp = self.reglas [ count ].marcadorOriginal + ' -> ' + self.reglas [ count ].reglaOriginal + ' : ' + self.reglas [ count ].clearString ( cadenaAuxiliar )
                 lista.append(temp)
                 count = count + 1
             else:
