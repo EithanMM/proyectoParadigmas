@@ -1,5 +1,5 @@
-# vars xy
-# markers  ßθαδΦλ -> ßθαδΦλ
+﻿#vars xy
+#markers  ßθαδΦλ -> ßθαδΦλ
 
 P1: xΦ->Φ
 P2: Φ->.F

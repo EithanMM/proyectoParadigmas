@@ -1,4 +1,4 @@
-#vars xy
+﻿#vars xy
 #markers ßλα
 
 P1: αx->xßxα

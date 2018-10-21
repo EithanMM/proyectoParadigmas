@@ -1,5 +1,5 @@
-# vars abc
-# markers ABCSE*
+﻿#vars abc
+#markers ABCSE*
 
 *a->a*
 *b->b*

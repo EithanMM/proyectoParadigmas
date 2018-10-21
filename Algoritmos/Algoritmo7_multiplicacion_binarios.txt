@@ -1,5 +1,6 @@
-# vars 01
-# markers |#B@*SEQ
+ #vars 01
+#markers |#B@*SEQ
+
 |0->0||
 1->0|
 0->$
