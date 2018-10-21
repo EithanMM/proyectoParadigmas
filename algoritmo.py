@@ -76,6 +76,7 @@ class Regla:
         posicionDelVector = 0
         posicionDeLaRegla = 0
         flag = False
+        self.marcador = self.marcadorOriginal
         while posicionDelVector < len ( cadena ):
             # print ( self.marcador [ posicionDeLaRegla ] )
             if self.isVariable ( self.marcador [ posicionDeLaRegla ] ) and not cadena [ posicionDelVector ] in self.marcador:
