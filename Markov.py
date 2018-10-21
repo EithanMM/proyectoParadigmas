@@ -10,16 +10,19 @@ class Markov:
         self.reglaSiguiente = 0
     
     def runAlgorithm ( self, cadena ):
-        isEnd = False
+        isEnd = 0
         count = 0
         lista = []
         cadenaAuxiliar = cadena
-        while ( isEnd == False ):
+        while ( isEnd <= 100 ):
+            isEnd = isEnd + 1
+            if isEnd == 100:
+                return lista
             if count + 1 > len ( self.reglas ):
                 # print ( self.reglas [ count ].marcadorOriginal + ' -> ' + self.reglas [ count ].regla + ' : ' + self.reglas [ count ].vivaRusia ( cadenaAuxiliar ) )
                 # return self.reglas [ count ].vivaRusia ( cadenaAuxiliar )
                 return lista
-            elif self.reglas [ count ].isEnd:
+            elif self.reglas [ count ].isEnd and cadena != cadenaAuxiliar:
                 temp = self.reglas [ count ].marcadorOriginal + ' -> ' + self.reglas [ count ].reglaOriginal + ' : ' + self.reglas [ count ].clearString ( cadenaAuxiliar )
                 lista.append(temp)
                 return lista
@@ -54,15 +57,15 @@ class Markov:
         self.reglaSiguiente = 0
 
 
-C1 = 'Aabc'
-V1 = ( 'x', 'y', 'z' )
-R1 = Regla ( 'Ax', 'xBxA', 1, False, V1 )
+# C1 = 'Aabc'
+# V1 = ( 'x', 'y', 'z' )
+# R1 = Regla ( 'Ax', 'xBxA', 1, False, V1 )
 # R2 = Regla ( 'Bx', 'xB', None, False, V1 )
 # R3 = Regla ( '0', '', None, False, V1 )
 # R4 = Regla ( 'J', 'justin', None, False, V1 )
 
-M1 = Markov ( [ R1 ] )
-print ( M1.runAlgorithm ( C1 ) )
+# M1 = Markov ( [ R1 ] )
+# print ( M1.runAlgorithm ( C1 ) )
 
 
 # C1 = M1.algorithmStepByStep ( C1 )
