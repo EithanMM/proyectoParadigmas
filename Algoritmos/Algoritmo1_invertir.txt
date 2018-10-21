@@ -5,7 +5,7 @@
 *b->b*
 *c->c*
 *->E
-SE->λ.
+SE->Λ.
 Aa->aA
 Ab->bA
 Ac->cA
@@ -21,4 +21,4 @@ CE->Ec
 Sa->SA
 Sb->SB
 Sc->SC
-""->S*
+Λ->S*
