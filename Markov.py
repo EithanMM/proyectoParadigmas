@@ -1,7 +1,7 @@
 # Autores: Justin Vega Madrigal ( 116550095 )
 # Diseñador: Justin Vega Madrigal ( 116550095 )
 
-from paradigmas.algoritmo import Regla
+from algoritmo import Regla
 
 class Markov:
 
@@ -53,6 +53,7 @@ class Markov:
     def restart ( self ):
         self.reglaSiguiente = 0
 
+
 # C1 = 'aAAAAA'
 # V1 = ( 'x', 'y', 'z' )
 # R1 = Regla ( 'a', 'B', None, False, V1 )
@@ -66,6 +67,7 @@ class Markov:
 
 # M1 = Markov ( [ R1, R2 ] )
 # print ( M1.runAlgorithm ( C1 ) )
+
 
 # C1 = M1.algorithmStepByStep ( C1 )
 # C1 = M1.algorithmStepByStep ( C1 )
