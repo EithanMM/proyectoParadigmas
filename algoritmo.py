@@ -15,7 +15,9 @@ class Regla:
         self.variablesOriginales = variables
     
     def vivaRusia ( self, cadena ):
-        if self.isVariable ( self.marcadorOriginal [ 0 ] ):
+        if self.marcadorOriginal == 'Λ':
+            return self.reglaOriginal + cadena
+        elif self.isVariable ( self.marcadorOriginal [ 0 ] ):
             where = self.whereIsRuleApplyWithVariables ( cadena )
             if where == None:
                 return cadena
@@ -54,6 +56,8 @@ class Regla:
         contador = 0
         while v1 [ contador ] != 0 and contador + 1 == v1 [ contador ]:
             contador = contador + 1
+            if contador == len ( v1 ):
+                break
         # print ( contador )
         if contador == self.longitud:
             return True
