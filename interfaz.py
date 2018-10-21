@@ -18,11 +18,13 @@ class ventana_principal(Frame):
     global simbolos  # aqui se guardaran
     global VG
     global vars
+    global isChecked
 
     def __init__(self, master=None):
         Frame.__init__(self, master)
         self.master = master
         self.archivo_actual = ""
+        self.isChecked = False
         self.vars = "wxyz"
         self.lista_reglas = []
         self.marcadores = "αβγδεζηθμλξπσφψωABCDEFGHIJKLMNOPQRSTUWXYZ"
@@ -68,12 +70,16 @@ class ventana_principal(Frame):
 
         # BOTONES PARA EVALUAR
         self.btn_paso_paso = Button(self.master, text="Evaluar paso a paso", state=ACTIVE, width=15, height=1, bd=2,
-                                    bg="chartreuse2", fg="firebrick1")
+                                    bg="chartreuse2", fg="firebrick1", command=self.obtener_reglas_de_consola)
         self.btn_paso_paso.place(x=298, y=60)
 
         self.btn_eval_golpe = Button(self.master, text="Evaluar", state=ACTIVE, width=15, height=1, bd=2,
-                                     bg="chartreuse2", fg="firebrick1",command=self.mostrar_resultado)
+                                     bg="chartreuse2", fg="firebrick1", command=self.mostrar_resultado)
         self.btn_eval_golpe.place(x=470, y=60)
+
+        self.var = IntVar()
+        self.btn_radio = Radiobutton(self.master, text="evaluar regla de panel izquierdo", variable=self.var, value=1, command=self.check_option)
+        self.btn_radio.place(x=298, y=250)
 
         # BOTONES LETRAS GRIEGAS
         self.button_a = Button(self.master, text="α", state=ACTIVE, width=3, height=1,
@@ -138,12 +144,14 @@ class ventana_principal(Frame):
             title="Elija una gramatica"
         )
         #si la lista de reglas no esta vacia, osea que cargaron otro algoritmo antes.
-        if len(self.lista_reglas)!= 0:
+        if len(self.lista_reglas) != 0:
 
             self.scroll_text.delete("1.0", END)
             self.scroll_text2.delete("1.0", END)
 
             del self.lista_reglas[:] #eliminamos cualquier la totalidad de los elementos
+            del self.VG[:] #eliminamos las variables viejas de la lista de variables.
+
             nombre_algoritmo = str(filename)
             nombre_algoritmo = nombre_algoritmo.replace("C:/PycharmProjects/paradigmas/Algoritmos/", "")
 
@@ -165,7 +173,7 @@ class ventana_principal(Frame):
             fo = open(filename, "r", encoding='utf-8')
             self.analyze_text(filename)
             print(self.VG)
-            print(self.lista_reglas)
+            # print(self.lista_reglas)
             self.scroll_text.insert(INSERT, fo.read())
             fo.close()
 
@@ -209,12 +217,11 @@ class ventana_principal(Frame):
                                 else:
                                     c = c + 1
                         # se agregaran las reglas a  la variable a
-                        while  c < len(line) and line[c]!=' ':
+                        while  c < len(line) and line[c] != ' ':
                             a = a + line[c]
                             print(a)
                             c = c + 1
 
-                        c = 0 # se resetea el contador
                         # este while busca si en la linea, encuentra un valor numerico,
                         # si lo hace corresponde a la etiqueta de la regla
                         while c < len(line)-1:
@@ -248,12 +255,25 @@ class ventana_principal(Frame):
 
                         # sino posee atiquetas
                         elif c_numero == '' and a != '':
+
+                            # si  no se encontraron variables en el archivo, agregue las que estan por defecto
+                            if len(self.VG) == 0:
+                                self.recorrer_string_vars(self.vars)
+
+
+
                             obj = a.split('->')
-                            obj = obj.rstrip('\n')
-                            if obj[1].find('.'):
+                            if "\n" in obj[1]:
+                                obj[1] = obj[1].partition('\n')[0]
+                            elif ' ' in obj[1]:
+                                obj[1] = obj[1].partition(' ')[0]
+
+
+                            if '.' in obj[1]:
                                 obj[1].replace('.', '')
                                 R = Regla(obj[0], obj[1], None, True, self.VG)
                                 self.lista_reglas.append(R)
+
                             else:
                                 R = Regla(obj[0], obj[1], None, False, self.VG)
                                 self.lista_reglas.append(R)
@@ -322,7 +342,7 @@ class ventana_principal(Frame):
                 self.scroll_text2.insert(INSERT, x+"\n")
 
             x =str(res[-1])
-            x = x.replace(' ', '')
+            x = x.replace('""', '')
             self.scroll_text2.insert(INSERT, "Resultado Final: " + x.rsplit(':', -1)[-1])
 
     def recorrer_string_vars(self, x):
@@ -341,6 +361,41 @@ class ventana_principal(Frame):
             return False
 
 
+    def obtener_reglas_de_consola(self):
+
+
+        conttador = 0
+        text = self.user_input.get()
+        if text == '':
+            messagebox.showinfo("Mensaje", "Digite una cadena a evaluar")
+        else:
+
+            if self.var.get() == 1:
+                temp = self.scroll_text.get()
+            else:
+                M1 = Markov(self.lista_reglas)
+                res = M1.runAlgorithm(text)
+                self.scroll_text2.insert(INSERT, "\nReglas - Resultado\n")
+                for x in res:
+                    result = messagebox.askquestion("Siguiente paso", "siguiente paso?")
+                    if result == 'yes':
+                        self.scroll_text2.insert(INSERT, x + "\n")
+                        self.scroll_text2.see(END)
+                    else:
+                        break
+
+                x = str(res[-1])
+                x = x.replace('""', '')
+                self.scroll_text2.insert(INSERT, "Resultado Final: " + x.rsplit(':', -1)[-1])
+    def check_option(self):
+        if self.isChecked == False:
+            self.isChecked = True
+
+            print("checkbox seleccionado " + str(self.var.get()))
+        else:
+            self.isChecked = False
+            self.var.set(0)
+            print("checkbox deseleccioando "+ str(self.var.get()))
 
 
 # Este es el nuevo Main
