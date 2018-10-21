@@ -22,10 +22,12 @@ class Markov:
                 # print ( self.reglas [ count ].marcadorOriginal + ' -> ' + self.reglas [ count ].regla + ' : ' + self.reglas [ count ].vivaRusia ( cadenaAuxiliar ) )
                 # return self.reglas [ count ].vivaRusia ( cadenaAuxiliar )
                 return lista
-            elif self.reglas [ count ].isEnd and cadena != cadenaAuxiliar:
-                temp = self.reglas [ count ].marcadorOriginal + ' -> ' + self.reglas [ count ].reglaOriginal + ' : ' + self.reglas [ count ].clearString ( cadenaAuxiliar )
-                lista.append(temp)
-                return lista
+            elif self.reglas [ count ].isEnd:
+                otraCadenaAuxiliar = self.reglas [ count ].clearString ( cadenaAuxiliar )
+                if cadenaAuxiliar != otraCadenaAuxiliar:
+                    temp = self.reglas [ count ].marcadorOriginal + ' -> ' + self.reglas [ count ].reglaOriginal + ' : ' + self.reglas [ count ].clearString ( cadenaAuxiliar )
+                    lista.append(temp)
+                    return lista
             cadenaAuxiliar = self.reglas [ count ].clearString ( cadenaAuxiliar )
             if cadena == cadenaAuxiliar:
                 temp = self.reglas [ count ].marcadorOriginal + ' -> ' + self.reglas [ count ].reglaOriginal + ' : ' + self.reglas [ count ].clearString ( cadenaAuxiliar )
