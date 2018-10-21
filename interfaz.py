@@ -17,14 +17,17 @@ class ventana_principal(Frame):
     global marcadores  # aqui se guardaran todos los simbolos romandos que hay en el programa
     global simbolos  # aqui se guardaran
     global VG
+    global vars
 
     def __init__(self, master=None):
         Frame.__init__(self, master)
         self.master = master
         self.archivo_actual = ""
+        self.vars = "wxyz"
         self.lista_reglas = []
         self.marcadores = "αβγδεζηθμλξπσφψωABCDEFGHIJKLMNOPQRSTUWXYZ"
         self.simbolos = "abcdefghijklmnopqrstuvwxyz0123456789|"
+        self.VG = []
         self.init_window()
 
     def salir(self):
@@ -171,28 +174,59 @@ class ventana_principal(Frame):
         print("nuevo archivo")
 
     def analyze_text(self, filename):
+        bandera = False
 
         with open(filename, "r", encoding='utf-8') as fo:
             while True:
                 line = fo.readline()
                 if line == '': #si es fin de linea
-                    V1 = ('x', '`', '~')
-                    R = Regla("F", ".", None, False, V1) #agrega una regla extra con cualquier tontera.
-                    self.lista_reglas.append(R)
-                    break
-                if line.startswith('%'):
+                    if bandera == False:
+                        self.recorrer_string_vars(self.vars)
+                    else:
+                        R = Regla("F", ".", None, False,self.VG) #agrega una regla extra con cualquier tontera.
+                        self.lista_reglas.append(R)
+                        break
+                if line.startswith('%') or line.startswith('#symbols') or line.startswith('#markers') or line.startswith('\n'):
                     continue
                 else:
-                    line = line.strip('\n')
-                    a = line.split("->")
-                    if -1 != a[1].find('.'):
-                        a[1].replace('.', '')
+
+                    temp = line[1:6]
+                    print(len(temp))
+                    if temp == "#vars":
+                       bandera = True
+                       x = line.rsplit(' ', -1)[-1]
+                       self.recorrer_string_vars(x)
                     else:
-                        print(a[0])
-                        print(a[1])
-                        V1 = ('x', '`', '~')
-                        R = Regla(a[0], a[1], None, False,V1)
-                        self.lista_reglas.append(R)
+                        c = 0
+                        a = ""
+                        c_numero = ""
+                        if line.startswith('P'):
+                            for x in line:
+                                if x == ":":
+                                    c = c + 2
+                                    break
+                                else:
+                                    c = c + 1
+
+                        while  c < len(line) and line[c]!=' ':
+                            a = a + line[c]
+                            print(a)
+                            c = c + 1
+                        while c < len(line):
+                            if self.RepresentsInt(line[c]):
+                                c_numero = c_numero + line
+                                print(c_numero)
+
+                            c = c + 1
+
+                # a = line.split("->")
+                # if -1 != a[0].find('.'):
+                #      a[1].replace('.', '')
+                # else:
+                #      print(a[0])
+                #      V1 = ('x', '`', '~')
+                #      R = Regla(a[0], a[1], None, False,V1)
+                #      self.lista_reglas.append(R)
 
 
     def modify_archive(self):
@@ -230,6 +264,7 @@ class ventana_principal(Frame):
                 title="Salvar gramatica"
             )
 
+
             if not filename:
                 print("algoritmo no salvado")
             else:
@@ -254,11 +289,25 @@ class ventana_principal(Frame):
             self.scroll_text2.insert(INSERT, "\nReglas - Resultado\n")
             for x in res:
                 print(x)
-                self.scroll_text2.insert(INSERT, x+"\n")
+                self.scroll_text2.insert(INSERT, x)
 
             x =str(res[-1])
             x = x.replace(' ', '')
             self.scroll_text2.insert(INSERT, "Resultado Final: " + x.rsplit(':', -1)[-1])
+
+    def recorrer_string_vars(self, x):
+        for val in x:
+            if val != "\n":
+                self.VG.append(x)
+            else:
+                continue
+
+    def RepresentsInt(self, s):
+        try:
+            int(s)
+            return True
+        except ValueError:
+            return False
 
 
 
