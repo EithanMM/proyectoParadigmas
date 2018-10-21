@@ -2,6 +2,7 @@ import os, fnmatch
 from tkinter import *
 from tkinter import scrolledtext
 from tkinter import Menu
+import fileinput
 from tkinter.filedialog import askopenfilename
 from tkinter.filedialog import asksaveasfilename
 from tkinter import messagebox
@@ -371,7 +372,101 @@ class ventana_principal(Frame):
         else:
 
             if self.var.get() == 1:
-                temp = self.scroll_text.get()
+                if len(self.VG) != 0:
+                    del self.VG[:]
+                if len(self.lista_reglas) != 0:
+                    del self.lista_reglas[:]
+
+                bandera = False
+                temp = str(self.scroll_text.get("1.0", "end-1c"))
+                temp = temp.split('\n')
+                for line in temp: # va  a leer cada linea
+                    print(line)
+                    if line == '':
+                        continue
+
+                    elif line.startswith('%') or line.startswith('#symbols') or line.startswith('#markers') or line.startswith('\n'):
+                        continue
+                    else:
+                        temp2 = line[:5]
+                        print(temp2)
+                        if temp2 == '#vars':
+                            bandera = True
+                            x = line.rsplit(' ', -1)[-1]
+                            self.recorrer_string_vars(x)
+                        else:
+                            c = 0
+                            a = ""
+                            c_numero = ""
+                            if line.startswith('P'):
+                                for x in line:
+                                    if x == ":":
+                                        c = c + 2
+                                        break
+                                    else:
+                                        c = c + 1
+
+                            while c < len(line) and line[c] != ' ':
+                                a = a + line[c]
+                                print(a)
+                                c = c + 1
+
+                            while c < len(line)-1:
+                                if self.RepresentsInt(line[c]):
+                                    c_numero = c_numero + line[c]
+                                    print(c_numero)
+                                c = c + 1
+
+                            if c_numero != '' and a != '':
+                                if len(self.VG) == 0:
+                                    self.recorrer_string_vars(self.vars)
+
+                                obj = a.split('->')
+                                if ' ' in obj[1]:
+                                    obj[1] = obj[1].partition(' ')[0]
+
+                                if '.' in obj[1]:
+                                    obj[1].replace('.', '')
+                                    R = Regla(obj[0], obj[1], None, int(c_numero), self.VG)
+                                    self.lista_reglas.append(R)
+
+                                else:
+                                    R = Regla(obj[0], obj[1], int(c_numero), False, self.VG)
+                                    self.lista_reglas.append(R)
+
+                            elif c_numero == '' and a != '':
+                                if len(self.VG) == 0:
+                                    self.recorrer_string_vars(self.vars)
+
+                                obj = a.split('->')
+                                if ' ' in obj[1]:
+                                    obj[1] = obj[1].partition(' ')[0]
+
+                                if '.' in obj[1]:
+                                    obj[1].replace('.', '')
+                                    R = Regla(obj[0], obj[1], None, False, self.VG)
+                                    self.lista_reglas.append(R)
+
+                                else:
+                                    R = Regla(obj[0], obj[1], None, False, self.VG)
+                                    self.lista_reglas.append(R)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             else:
                 M1 = Markov(self.lista_reglas)
                 res = M1.runAlgorithm(text)
