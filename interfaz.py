@@ -164,6 +164,7 @@ class ventana_principal(Frame):
             # vamos a leer lo que contenga el archivo y se imprime en pantalla.
             fo = open(filename, "r", encoding='utf-8')
             self.analyze_text(filename)
+            print(self.VG)
             print(self.lista_reglas)
             self.scroll_text.insert(INSERT, fo.read())
             fo.close()
@@ -180,53 +181,82 @@ class ventana_principal(Frame):
             while True:
                 line = fo.readline()
                 if line == '': #si es fin de linea
-                    if bandera == False:
-                        self.recorrer_string_vars(self.vars)
-                    else:
-                        R = Regla("F", ".", None, False,self.VG) #agrega una regla extra con cualquier tontera.
-                        self.lista_reglas.append(R)
+                    if bandera == False: # sino encontro '#vars'
                         break
-                if line.startswith('%') or line.startswith('#symbols') or line.startswith('#markers') or line.startswith('\n'):
+                    else: # si encontro '#vars'
+                        break
+
+                elif line.startswith('%') or line.startswith('#symbols') or line.startswith('#markers') or line.startswith('\n'):
                     continue
                 else:
-
+                    # temp tendra el identificador '#vars'
                     temp = line[1:6]
                     print(len(temp))
-                    if temp == "#vars":
+                    if temp == "#vars": #si '#vars' se encuentra dentro del documento.
                        bandera = True
                        x = line.rsplit(' ', -1)[-1]
-                       self.recorrer_string_vars(x)
-                    else:
+                       self.recorrer_string_vars(x) #aguegue las variables a VG.
+
+                    else: #  si '#vars' no se ecuentra en el documento.
                         c = 0
                         a = ""
                         c_numero = ""
-                        if line.startswith('P'):
+                        if line.startswith('P'): # si nos encontramos lineas que poseean etiquetas
                             for x in line:
                                 if x == ":":
                                     c = c + 2
                                     break
                                 else:
                                     c = c + 1
-
+                        # se agregaran las reglas a  la variable a
                         while  c < len(line) and line[c]!=' ':
                             a = a + line[c]
                             print(a)
                             c = c + 1
-                        while c < len(line):
-                            if self.RepresentsInt(line[c]):
-                                c_numero = c_numero + line
-                                print(c_numero)
 
+                        c = 0 # se resetea el contador
+                        # este while busca si en la linea, encuentra un valor numerico,
+                        # si lo hace corresponde a la etiqueta de la regla
+                        while c < len(line)-1:
+                            if self.RepresentsInt(line[c]):
+                                c_numero = c_numero + line[c]
+                                print(c_numero)
                             c = c + 1
 
-                # a = line.split("->")
-                # if -1 != a[0].find('.'):
-                #      a[1].replace('.', '')
-                # else:
-                #      print(a[0])
-                #      V1 = ('x', '`', '~')
-                #      R = Regla(a[0], a[1], None, False,V1)
-                #      self.lista_reglas.append(R)
+                        # si el archivo posee etiquetas y variables
+                        if c_numero != '' and a != '':
+
+                            # si  no se encontraron variables en el archivo, agregue las que estan por defecto
+                            if len(self.VG) == 0:
+                                self.recorrer_string_vars(self.vars)
+
+
+                            obj = a.split('->')
+                            if "\n" in obj[1]:
+                                obj[1] = obj[1].partition('\n')[0]
+                            elif ' ' in obj[1]:
+                                obj[1] = obj[1].partition(' ')[0]
+
+                            if '.' in obj[1]:
+                                obj[1].replace('.', '')
+                                R = Regla(obj[0], obj[1], int(c_numero), True, self.VG)
+                                self.lista_reglas.append(R)
+
+                            else:
+                                R = Regla(obj[0], obj[1], int(c_numero), False, self.VG)
+                                self.lista_reglas.append(R)
+
+                        # sino posee atiquetas
+                        elif c_numero == '' and a != '':
+                            obj = a.split('->')
+                            obj = obj.rstrip('\n')
+                            if obj[1].find('.'):
+                                obj[1].replace('.', '')
+                                R = Regla(obj[0], obj[1], None, True, self.VG)
+                                self.lista_reglas.append(R)
+                            else:
+                                R = Regla(obj[0], obj[1], None, False, self.VG)
+                                self.lista_reglas.append(R)
 
 
     def modify_archive(self):
@@ -289,7 +319,7 @@ class ventana_principal(Frame):
             self.scroll_text2.insert(INSERT, "\nReglas - Resultado\n")
             for x in res:
                 print(x)
-                self.scroll_text2.insert(INSERT, x)
+                self.scroll_text2.insert(INSERT, x+"\n")
 
             x =str(res[-1])
             x = x.replace(' ', '')
@@ -298,7 +328,8 @@ class ventana_principal(Frame):
     def recorrer_string_vars(self, x):
         for val in x:
             if val != "\n":
-                self.VG.append(x)
+                self.VG.append(val)
+                print(self.VG)
             else:
                 continue
 
