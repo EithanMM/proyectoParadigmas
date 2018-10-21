@@ -1,7 +1,6 @@
-﻿#vars x
-#markers ßλ
-
-P1: xxß -> xß
-P2: ßx -> xß
-P3: xß ->. xλ
-P4: x -> ßx
+# vars x
+# markers ßλ
+P1: xxß->xß
+P2: ßx->xß
+P3: xß->.xλ
+P4: x->ßx

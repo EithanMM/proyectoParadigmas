@@ -1,8 +1,8 @@
-﻿#var xy
+#vars xy
 #markers ßλα
 
-P1: αx -> xßxα
-P2: ßxy -> xßy
-P3: ß -> λ
-P4: α ->. λ
-P5: λ -> α
+P1: αx->xßxα
+P2: ßxy->xßy
+P3: ß->λ
+P4: α->.λ
+P5: λ->α
