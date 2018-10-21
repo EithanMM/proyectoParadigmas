@@ -1,0 +1,24 @@
+# vars abc
+# markers ABCSE*
+
+*a->a*
+*b->b*
+*c->c*
+*->E
+SE->λ.
+Aa->aA
+Ab->bA
+Ac->cA
+Ba->aB
+Bb->bB
+Bc->cB
+Ca->aC
+Cb->bC
+Cc->cC
+AE->Ea
+BE->Eb
+CE->Ec
+Sa->SA
+Sb->SB
+Sc->SC
+""->S*
