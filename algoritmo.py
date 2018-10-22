@@ -11,28 +11,37 @@ class Regla:
         self.longitud = len ( marcador )
         self.isEnd = isEnd
         self.variablesOriginales = variables
+
+        # El uso de "diccionarios" sería una descición más acertada pero se utilizó listas debido a
+        # la inexpecia en el lenguaje de programación Python.
     
     def clearString ( self, cadena ):
         cadenaAuxiliar = self.vivaRusia ( cadena )
         cadenaAuxiliar = cadenaAuxiliar.replace ( 'Λ', '' )
         return cadenaAuxiliar
+        
+        # El método "clearString" debería de ser llamado dentro del método "vivaRusia", sin embarg-
+        # o, debido a los múltiples puntos de salida del método "vivaRusia" se decide invertir el -
+        # orden coherente de llamadas.
+    
+    # El método de método "vivaRusia" se encarga de evaluar ciertas caracteristicas de la hilera de
+    # entrada y ejecutar las funciones necesarias para el proceso de sustitución (si es posible) en
+    # función a las caracteristicas de la hilera.
     
     def vivaRusia ( self, cadena ):
         if self.marcadorOriginal == 'Λ':
             return self.reglaOriginal + cadena
-        elif self.isVariable ( self.marcadorOriginal [ 0 ] ):
+        elif self.marcadorOriginal [ 0 ] in self.variablesOriginales:
             where = self.whereIsRuleApplyWithVariables ( cadena )
             if where == None:
                 return cadena
             else:
-                # self.regla = self.reglaOriginal
                 self.regla = self.fixRule ( )
                 return self.ruleApply ( cadena, where )
         else:
             v1 = self.funcionEspecial ( cadena )
             if self.isRuleApply ( v1 ):
                 where = self.whereIsRuleApply ( v1 )
-                # self.regla = self.reglaOriginal
                 self.regla = self.fixRule ( )
                 return self.ruleApply ( cadena, where )
             else:
@@ -88,6 +97,7 @@ class Regla:
                 self.marcador = self.marcador.replace ( self.marcadorOriginal [ posicionDeLaRegla], cadena [ posicionDelVector ] )
             if self.isMatch ( cadena [ posicionDelVector ], self.marcador [ posicionDeLaRegla ] ):
             # if x == self.marcador [ posicionDeLaRegla ]:
+                flag = False
                 posicionDeLaRegla = posicionDeLaRegla + 1
                 auxiliar [ posicionDelVector ] = posicionDeLaRegla
             else:
