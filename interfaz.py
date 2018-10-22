@@ -165,6 +165,8 @@ class ventana_principal(Frame):
             mensa = messagebox.showinfo("", nombre_algoritmo + " cargado")
 
         else:
+            self.scroll_text.delete("1.0", END)
+            self.scroll_text2.delete("1.0", END)
             # muestra en el scrolltext de abajo, que tipo de algoritmo se esta usando
             nombre_algoritmo = str(filename)
             nombre_algoritmo = nombre_algoritmo.replace("C:/PycharmProjects/paradigmas/Algoritmos/", "")
@@ -335,16 +337,110 @@ class ventana_principal(Frame):
             messagebox.showinfo("Mensaje", "Digite una cadena a evaluar")
         else:
 
-            M1 = Markov(self.lista_reglas)
-            res = M1.runAlgorithm ( text )
-            self.scroll_text2.insert(INSERT, "\nReglas - Resultado\n")
-            for x in res:
-                print(x)
-                self.scroll_text2.insert(INSERT, x+"\n")
+            if self.var.get() == 1:
+                if len(self.VG) != 0:
+                    del self.VG[:]
+                if len(self.lista_reglas) != 0:
+                    del self.lista_reglas[:]
 
-            x =str(res[-1])
-            x = x.replace('""', '')
-            self.scroll_text2.insert(INSERT, "Resultado Final: " + x.rsplit(':', -1)[-1])
+                bandera = False
+                temp = str(self.scroll_text.get("1.0", "end-1c"))
+                temp = temp.split('\n')
+                for line in temp: # va  a leer cada linea
+                    print(line)
+                    if line == '':
+                        continue
+
+                    elif line.startswith('%') or line.startswith('#symbols') or line.startswith('#markers') or line.startswith('\n'):
+                        continue
+                    else:
+                        temp2 = line[:5]
+                        print(temp2)
+                        if temp2 == '#vars':
+                            bandera = True
+                            x = line.rsplit(' ', -1)[-1]
+                            self.recorrer_string_vars(x)
+                        else:
+                            c = 0
+                            a = ""
+                            c_numero = ""
+                            if line.startswith('P'):
+                                for x in line:
+                                    if x == ":":
+                                        c = c + 2
+                                        break
+                                    else:
+                                        c = c + 1
+
+                            while c < len(line) and line[c] != ' ':
+                                a = a + line[c]
+                                print(a)
+                                c = c + 1
+
+                            while c < len(line)-1:
+                                if self.RepresentsInt(line[c]):
+                                    c_numero = c_numero + line[c]
+                                    print(c_numero)
+                                c = c + 1
+
+                            if c_numero != '' and a != '':
+                                if len(self.VG) == 0:
+                                    self.recorrer_string_vars(self.vars)
+
+                                obj = a.split('->')
+                                if ' ' in obj[1]:
+                                    obj[1] = obj[1].partition(' ')[0]
+
+                                if '.' in obj[1]:
+                                    obj[1].replace('.', '')
+                                    R = Regla(obj[0], obj[1], None, int(c_numero), self.VG)
+                                    self.lista_reglas.append(R)
+
+                                else:
+                                    R = Regla(obj[0], obj[1], int(c_numero), False, self.VG)
+                                    self.lista_reglas.append(R)
+
+                            elif c_numero == '' and a != '':
+                                if len(self.VG) == 0:
+                                    self.recorrer_string_vars(self.vars)
+
+                                obj = a.split('->')
+                                if ' ' in obj[1]:
+                                    obj[1] = obj[1].partition(' ')[0]
+
+                                if '.' in obj[1]:
+                                    obj[1].replace('.', '')
+                                    R = Regla(obj[0], obj[1], None, False, self.VG)
+                                    self.lista_reglas.append(R)
+
+                                else:
+                                    R = Regla(obj[0], obj[1], None, False, self.VG)
+                                    self.lista_reglas.append(R)
+
+                #nos salimos del for
+                M1 = Markov(self.lista_reglas)
+                res = M1.runAlgorithm(text)
+                self.scroll_text2.insert(INSERT, "\nReglas - Resultado\n")
+                for x in res:
+                    print(x)
+                    self.scroll_text2.insert(INSERT, x + "\n")
+
+                x = str(res[-1])
+                x = x.replace('""', '')
+                self.scroll_text2.insert(INSERT, "Resultado Final: " + x.rsplit(':', -1)[-1])
+
+            else:
+                M1 = Markov(self.lista_reglas)
+                res = M1.runAlgorithm ( text )
+                self.scroll_text2.insert(INSERT, "\nReglas - Resultado\n")
+                for x in res:
+                    print(x)
+                    self.scroll_text2.insert(INSERT, x+"\n")
+                    self.scroll_text2.see(END)
+
+                x =str(res[-1])
+                x = x.replace('""', '')
+                self.scroll_text2.insert(INSERT, "Resultado Final: " + x.rsplit(':', -1)[-1])
 
     def recorrer_string_vars(self, x):
         for val in x:
@@ -443,7 +539,10 @@ class ventana_principal(Frame):
                                     obj[1] = obj[1].partition(' ')[0]
 
                                 if '.' in obj[1]:
-                                    obj[1].replace('.', '')
+                                    word = str(obj[1])
+                                    word = word.replace('.', '')
+                                    obj[1] = word
+
                                     R = Regla(obj[0], obj[1], None, False, self.VG)
                                     self.lista_reglas.append(R)
 
@@ -451,23 +550,26 @@ class ventana_principal(Frame):
                                     R = Regla(obj[0], obj[1], None, False, self.VG)
                                     self.lista_reglas.append(R)
 
+                #aqui estamos fuera del for
+                print(self.VG)
+                M1 = Markov(self.lista_reglas)
+                res = M1.runAlgorithm(text)
 
+                self.scroll_text2.insert(INSERT, "\nReglas - Resultado\n")
+                for x in res:
+                    result = messagebox.askquestion("Siguiente paso", "siguiente paso?")
+                    if result == 'yes':
+                        self.scroll_text2.insert(INSERT, x + "\n")
+                        self.scroll_text2.see(END)
+                    else:
+                        break
 
+                x = str(res[-1])
+                x = x.replace('""', '')
+                self.scroll_text2.insert(INSERT, "Resultado Final: " + x.rsplit(':', -1)[-1])
 
+            else: # si el radio button no esta clickeado
 
-
-
-
-
-
-
-
-
-
-
-
-
-            else:
                 M1 = Markov(self.lista_reglas)
                 res = M1.runAlgorithm(text)
                 self.scroll_text2.insert(INSERT, "\nReglas - Resultado\n")
@@ -482,6 +584,8 @@ class ventana_principal(Frame):
                 x = str(res[-1])
                 x = x.replace('""', '')
                 self.scroll_text2.insert(INSERT, "Resultado Final: " + x.rsplit(':', -1)[-1])
+
+
     def check_option(self):
         if self.isChecked == False:
             self.isChecked = True
