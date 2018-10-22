@@ -9,7 +9,7 @@ from tkinter import messagebox
 from paradigmas.algoritmo import Regla
 from paradigmas.Markov import Markov
 
-from datetime import datetime
+# autor Eithan Mendez Mendez
 
 
 class ventana_principal(Frame):
@@ -342,7 +342,6 @@ class ventana_principal(Frame):
                     del self.VG[:]
                 if len(self.lista_reglas) != 0:
                     del self.lista_reglas[:]
-
 
                 bandera = False
                 temp = str(self.scroll_text.get("1.0", "end-1c"))
