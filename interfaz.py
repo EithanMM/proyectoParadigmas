@@ -12,6 +12,7 @@ from paradigmas.Markov import Markov
 # autor Eithan Mendez Mendez
 
 
+
 class ventana_principal(Frame):
     global archivo_actual  # variable global que alberga la direccion actual del archivo que se esta modificando
     global lista_reglas
