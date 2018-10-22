@@ -343,6 +343,7 @@ class ventana_principal(Frame):
                 if len(self.lista_reglas) != 0:
                     del self.lista_reglas[:]
 
+
                 bandera = False
                 temp = str(self.scroll_text.get("1.0", "end-1c"))
                 temp = temp.split('\n')
